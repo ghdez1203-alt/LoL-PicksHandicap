@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rift Console — MSI 2026 Prop Picks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --bg-panel:#12161D; --bg-panel-alt:#181E27; --bg-raised:#1E2530;
+    --gold:#C8A452; --gold-bright:#E4C777; --cyan:#3FDDD0; --danger:#E8536B;
+    --success:#4FC97E; --text:#E8EAED; --text-dim:#8B96A5; --text-faint:#5C6572;
+    --border:#232B36; --border-bright:#333F4E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(200,164,82,0.07), transparent 60%),
+      radial-gradient(1000px 700px at 100% 0%, rgba(63,221,208,0.06), transparent 55%),
+      var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; line-height:1.5; min-height:100vh;
+  }
+  h1,h2,h3,h4,.display{font-family:'Rajdhani',sans-serif; letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  ::selection{background:rgba(200,164,82,0.35);}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px 80px;}
+
+  header.hero{padding:46px 20px 30px; border-bottom:1px solid var(--border); position:relative; overflow:hidden;}
+  header.hero::before{content:""; position:absolute; inset:0; background:linear-gradient(90deg, transparent 0%, rgba(200,164,82,0.5) 50%, transparent 100%); height:1px; top:0;}
+  .hero-inner{max-width:1080px; margin:0 auto; padding:0 20px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(200,164,82,0.35); background:rgba(200,164,82,0.07); padding:5px 10px; border-radius:3px;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--success); box-shadow:0 0 8px var(--success);}
+  h1.title{font-size:42px; font-weight:700; margin:16px 0 6px; line-height:1.05;}
+  h1.title .accent{color:var(--gold);}
+  .subtitle{color:var(--text-dim); font-size:15.5px; max-width:640px; margin:0 0 18px;}
+  .disclaimer-bar{font-size:12.5px; color:var(--text-faint); border-left:2px solid var(--border-bright); padding:8px 14px; max-width:760px; background:var(--bg-panel);}
+  .disclaimer-bar b{color:var(--text-dim);}
+
+  section{padding:34px 0;}
+  .section-head{margin-bottom:18px;}
+  .section-label{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint);}
+  h2.section-title{font-size:25px; margin:2px 0 0;}
+  .section-sub{color:var(--text-dim); font-size:13.5px; max-width:760px; margin:8px 0 0;}
+
+  /* ---------- roster accordion ---------- */
+  .league-group{margin-bottom:22px;}
+  .league-name{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); margin:0 0 8px;}
+  .team-acc{border:1px solid var(--border); border-radius:6px; margin-bottom:8px; overflow:hidden; background:var(--bg-panel);}
+  .team-acc-head{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; transition:background .15s ease;}
+  .team-acc-head:hover{background:var(--bg-panel-alt);}
+  .team-acc-head .tname{font-family:'Rajdhani',sans-serif; font-weight:700; font-size:18px; display:inline-flex; align-items:center; gap:8px;}
+  .team-acc-head .tmeta{font-size:11.5px; color:var(--text-faint); font-family:'JetBrains Mono',monospace;}
+  .team-acc-head .chev{color:var(--text-faint); transition:transform .2s ease; font-size:14px;}
+  .team-acc.open .chev{transform:rotate(90deg); color:var(--gold);}
+  .team-acc-body{display:none; border-top:1px solid var(--border); padding:6px 0;}
+  .team-acc.open .team-acc-body{display:block;}
+  .proster{width:100%; border-collapse:collapse; font-size:13px;}
+  .proster th{font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); text-align:left; padding:6px 16px; font-weight:500;}
+  .proster td{padding:7px 16px; border-top:1px solid var(--border);}
+  .proster .prole{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-faint); text-transform:uppercase;}
+  .proster .pname{font-weight:600;}
+  .proster .pchamp{color:var(--cyan); font-size:12px;}
+  .proster input{width:52px; background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); padding:4px 6px; border-radius:3px; font-family:'JetBrains Mono',monospace; font-size:12px;}
+  .proster input:focus{outline:none; border-color:var(--gold);}
+  .proster input.recent{border-color:rgba(200,164,82,0.5);}
+
+  /* ---------- picks engine ---------- */
+  textarea{width:100%; resize:vertical; background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); padding:12px 14px; border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.6;}
+  textarea:focus{outline:none; border-color:var(--gold);}
+  select{background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); padding:9px 12px; border-radius:3px; font-family:'Inter',sans-serif; font-size:14px;}
+  select:focus{outline:none; border-color:var(--gold);}
+  .field label{display:block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-faint); margin-bottom:6px;}
+  .opts-row{display:flex; gap:20px; flex-wrap:wrap; align-items:flex-end; margin:14px 0;}
+  .opt-checks{display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
+  .opt-checks label{display:flex; align-items:center; gap:6px; font-size:13px; color:var(--text-dim); cursor:pointer;}
+  .btn{font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; background:linear-gradient(180deg, var(--gold-bright), var(--gold)); color:#171207; border:none; padding:12px 22px; border-radius:4px; cursor:pointer; font-size:15px; transition:filter .15s ease;}
+  .btn:hover{filter:brightness(1.08);}
+  .btn.small{padding:7px 12px; font-size:12.5px;}
+  .btn.ghost{background:transparent; color:var(--text-dim); border:1px solid var(--border);}
+  .btn.secondary{background:var(--bg-raised); color:var(--text); border:1px solid var(--border-bright);}
+
+  .picks-head{display:grid; grid-template-columns:34px 1.7fr 0.8fr 0.9fr 0.8fr 1fr; gap:10px; padding:0 14px 6px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint);}
+  .pick-row{display:grid; grid-template-columns:34px 1.7fr 0.8fr 0.9fr 0.8fr 1fr; gap:10px; align-items:center; padding:12px 14px; background:var(--bg-panel); border:1px solid var(--border); border-radius:6px; margin-bottom:8px;}
+  .pick-row .rank{font-family:'JetBrains Mono',monospace; color:var(--text-faint); font-size:13px;}
+  .pick-row .pk-name{font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16px;}
+  .pick-row .pk-sub{font-size:11px; color:var(--text-faint);}
+  .pick-row .pk-line{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-dim);}
+  .pick-row .pk-exp{font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700; color:var(--gold-bright);}
+  .pick-row .pk-call{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px;}
+  .pick-row .pk-call.over{color:var(--success);} .pick-row .pk-call.under{color:var(--danger);}
+  .conf{font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em; padding:3px 9px; border-radius:12px; border:1px solid var(--border-bright); justify-self:start; white-space:nowrap;}
+  .conf.strong{color:var(--success); border-color:rgba(79,201,126,0.4);}
+  .conf.lean{color:var(--gold-bright); border-color:rgba(200,164,82,0.4);}
+  .conf.pass{color:var(--text-faint);}
+  .warn{font-size:12.5px; color:var(--text-faint); border:1px dashed var(--border); border-radius:4px; padding:10px 12px; margin-top:10px;}
+  .match-block{margin-bottom:14px; border:1px solid var(--border); border-radius:8px; padding:14px 16px; background:var(--bg-panel-alt);}
+  .mb-toggle{cursor:pointer;}
+  .mb-toggle:hover .match-teams{color:var(--gold-bright);}
+  .mb-summary{display:flex; align-items:center; justify-content:space-between; margin-top:2px;}
+  .mb-count{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-faint); letter-spacing:0.04em;}
+  .mb-chev{color:var(--text-faint); transition:transform .2s ease; font-size:13px;}
+  .match-block:not(.collapsed) .mb-chev{transform:rotate(90deg); color:var(--gold);}
+  .match-block.collapsed .mb-body{display:none;}
+  .mb-body{margin-top:12px;}
+  .match-head{display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .match-teams{font-family:'Rajdhani',sans-serif; font-weight:700; font-size:20px; display:flex; align-items:center; flex-wrap:wrap; gap:4px;}
+  .team-badge{display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:22px; padding:0 5px; border-radius:5px; font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.02em; border:1px solid rgba(255,255,255,0.14); vertical-align:middle;}
+  .match-teams .vs{color:var(--text-faint); font-weight:500; font-size:15px; margin:0 4px;}
+  .match-pred{display:flex; flex-direction:column; align-items:flex-end; gap:2px; font-size:12.5px; color:var(--text-dim);}
+  .match-pred b{color:var(--gold-bright); font-weight:700;}
+  .match-pred .mp-prob b{color:var(--cyan);}
+  .winbar{position:relative; height:26px; background:var(--danger); border-radius:4px; overflow:hidden; margin-bottom:12px; border:1px solid var(--border);}
+  .winbar .wb-fill{position:absolute; left:0; top:0; bottom:0; background:var(--success); transition:width .4s ease;}
+  .winbar .wb-labels{position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 12px; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:#0A0D12; z-index:2;}
+  .winbar .wb-labels span:last-child{color:#fff;}
+  .combo-divider{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); margin:14px 0 8px; padding-top:10px; border-top:1px dashed var(--border);}
+  .pick-row.combo{border-color:rgba(63,221,208,0.28);}
+  .combo-badge{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.08em; color:var(--cyan); border:1px solid rgba(63,221,208,0.4); border-radius:3px; padding:1px 5px; margin-left:6px; vertical-align:middle;}
+  .res{font-family:'JetBrains Mono',monospace; font-weight:700;}
+  .res-ok{color:var(--success);} .res-bad{color:var(--danger);} .res-push{color:var(--text-faint);}
+  .pick-row.res-ok{border-left:3px solid var(--success);}
+  .pick-row.res-bad{border-left:3px solid var(--danger);}
+  .pick-row.res-push{border-left:3px solid var(--border-bright);}
+  .hit-tag{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--gold-bright); background:rgba(200,164,82,0.12); border:1px solid rgba(200,164,82,0.3); border-radius:10px; padding:2px 8px;}
+  .pred-hit{color:var(--success); font-size:12px; font-weight:600;}
+  .pred-miss{color:var(--danger); font-size:12px; font-weight:600;}
+  .result-badge{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--gold-bright);}
+  .hist-overall{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:18px;}
+  .hist-overall .ho-box{background:var(--bg-panel-alt); border:1px solid var(--border); border-radius:6px; padding:12px 14px;}
+  .hist-overall .ho-k{font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint);}
+  .hist-overall .ho-v{font-family:'Rajdhani',sans-serif; font-size:24px; font-weight:700; color:var(--gold-bright); margin-top:2px;}
+  .hist-overall .ho-v span{font-size:14px; color:var(--text-dim);}
+  .empty{color:var(--text-faint); font-size:14px; border:1px dashed var(--border); border-radius:6px; padding:36px 20px; text-align:center;}
+  @media (max-width:720px){
+    .picks-head{display:none;}
+    .pick-row{grid-template-columns:28px 1fr; grid-auto-rows:auto; gap:6px;}
+  }
+
+  footer{border-top:1px solid var(--border); padding:30px 20px 60px; margin-top:20px;}
+  footer .fw{max-width:1080px; margin:0 auto; color:var(--text-faint); font-size:12.5px; line-height:1.7;}
+  footer b{color:var(--text-dim);}
+  ::-webkit-scrollbar{height:8px; width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--border-bright); border-radius:4px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span> MSI 2026 · Daejeon</span>
+    <h1 class="title">Rift <span class="accent">Console</span></h1>
+    <p class="subtitle">Paste the kill lines you see on PrizePicks and get a ranked lean list with projected kills for every MSI 2026 team. Rosters below are verified; per-game numbers are editable estimates.</p>
+    <div class="disclaimer-bar">
+      <b>Read first:</b> This tool can't read the live PrizePicks board — you paste the lines, it ranks them. Projections use approximate per-game averages, not a live stats feed, and are for entertainment only. Verify current lines and lineups on PrizePicks before wagering. Not gambling advice.
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ PICKS ENGINE ============ -->
+  <section id="picks-section">
+    <div class="section-head">
+      <div class="section-label">01 · Picks</div>
+      <h2 class="section-title">Paste lines → ranked leans</h2>
+      <p class="section-sub">One line per row. Format: <span class="mono" style="color:var(--cyan);">Name vs Opponent MAPS 1-3 13.5</span> — the "vs Opponent" and "MAPS" parts are optional. Results are ranked by confidence, strongest first, with the projected kill total for each.</p>
+    </div>
+
+    <textarea id="slateInput" rows="20">Bin vs LYON MAPS 1-3 10
+Xun vs LYON MAPS 1-3 13
+knight vs LYON MAPS 1-3 18.5
+Viper vs LYON MAPS 1-3 16
+ON vs LYON MAPS 1-3 2.5
+Dhokla vs BLG MAPS 1-3 5.5
+Inspired vs BLG MAPS 1-3 7
+Saint vs BLG MAPS 1-3 7.5
+Berserker vs BLG MAPS 1-3 9
+Isles vs BLG MAPS 1-3 1.5
+Doran vs FUR MAPS 1-3 9
+Oner vs FUR MAPS 1-3 13
+Faker vs FUR MAPS 1-3 12.5
+Peyz vs FUR MAPS 1-3 19.5
+Keria vs FUR MAPS 1-3 3.5
+Guigo vs T1 MAPS 1-3 6.5
+Tatu vs T1 MAPS 1-3 7.5
+Tutsz vs T1 MAPS 1-3 7
+Ayu vs T1 MAPS 1-3 9</textarea>
+
+    <div class="opts-row">
+      <div class="field">
+        <label>Default map (unless a line sets its own)</label>
+        <select id="defaultMap">
+          <option value="1">Map 1</option>
+          <option value="2">Map 2</option>
+          <option value="3">Map 3</option>
+          <option value="1-2" selected>Map 1-2 (combo)</option>
+          <option value="1-3">Map 1-3 (combo)</option>
+          <option value="2-3">Map 2-3 (combo)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Adjustments</label>
+        <div class="opt-checks">
+          <label><input type="checkbox" id="optMatchup" checked> Matchup strength</label>
+          <label><input type="checkbox" id="optRecent" checked> Recent form</label>
+          <label><input type="checkbox" id="optH2H" checked> Head-to-head</label>
+          <label><input type="checkbox" id="optBan"> Ban-rate risk</label>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" id="rankBtn">Rank these picks</button>
+    <div id="results" style="margin-top:20px;"></div>
+  </section>
+
+  <!-- ============ PAST GAMES ============ -->
+  <section id="history-section">
+    <div class="section-head">
+      <div class="section-label">03 · Past Games</div>
+      <h2 class="section-title">Track record</h2>
+      <p class="section-sub">Completed MSI 2026 matches with how each pick landed. Click a match to see every pick, the line, the lean the model gave, and the actual Maps 1-3 kills.</p>
+    </div>
+    <div id="historyOverall"></div>
+    <div id="historyList"></div>
+  </section>
+
+  <!-- ============ ROSTERS ============ -->
+  <section id="roster-section">
+    <div class="section-head">
+      <div class="section-label">04 · Rosters</div>
+      <h2 class="section-title">MSI 2026 teams</h2>
+      <p class="section-sub">Click a team to expand its roster. Season and recent per-game kill averages are editable — tune them as real numbers come in, and the picks engine will use your values.</p>
+    </div>
+    <div id="rosterAccordion"></div>
+    <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
+      <button class="btn secondary small" id="exportBtn">Export data (JSON)</button>
+      <label class="btn secondary small" style="cursor:pointer;">Import data<input type="file" id="importFile" accept=".json" style="display:none;"></label>
+      <button class="btn ghost small" id="resetBtn">Reset to defaults</button>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="fw">
+    <b>How the projection works:</b> each player has a per-game kill average multiplied by the number of maps in the combo. The <b>matchup strength</b> adjustment is the key one: every team has a strength rating (my read from MSI power rankings and results), so when you give an opponent, a favorite's kills trend up while a heavy underdog's inflated domestic numbers get suppressed — the ranking reflects who's actually likely to win, not just raw averages. Recent form, head-to-head, and ban-rate risk apply smaller nudges. The adjusted projection is compared to your line to pick a side, and confidence reflects how likely that side clears using a Poisson kill distribution. No live game simulation is run — it's a direct statistical projection.<br><br>
+    <b>Limitations:</b> the per-game numbers and team ratings are my hand-compiled estimates, not a licensed feed, and are roughest for the LCP and CBLOL teams. The matchup adjustment is a heuristic, not a prediction engine — it can't know the draft, form on the day, or variance. Map 2, Map 3, and combos including them only occur if the series goes that far. Treat outputs as one input, not a guarantee.<br><br>
+    <b>Play responsibly:</b> prop contests carry real financial risk. Only play what you can afford to lose. If gambling stops being fun or feels hard to control, the National Council on Problem Gambling helpline (1-800-522-4700) offers free, confidential support in the US.
+  </div>
+</footer>
+
+<script>
+/* ================= DATA: MSI 2026 rosters (verified) ================= */
+// kills = season per-game avg. recentKills = recent-form avg (MSI Play-In where
+// available). Numbers are editable estimates; rosters/roles are verified.
+const DEFAULT_PLAYERS = [
+// LCK
+{id:"t1_1",name:"Doran",team:"T1",league:"LCK",role:"Top",kills:2.8,recentKills:2.4,champ:"Ornn",banRate:18},
+{id:"t1_2",name:"Oner",team:"T1",league:"LCK",role:"Jungle",kills:3.8,recentKills:3.1,champ:"Kindred",banRate:25},
+{id:"t1_3",name:"Faker",team:"T1",league:"LCK",role:"Mid",kills:3.5,recentKills:3.1,champ:"Azir",banRate:42},
+{id:"t1_4",name:"Peyz",team:"T1",league:"LCK",role:"ADC",kills:4.6,recentKills:4.8,champ:"Kalista",banRate:40},
+{id:"t1_5",name:"Keria",team:"T1",league:"LCK",role:"Support",kills:1.0,recentKills:0.5,champ:"Rakan",banRate:44},
+{id:"hle_1",name:"Zeus",team:"Hanwha Life Esports",league:"LCK",role:"Top",kills:4.2,recentKills:3.1,champ:"Jayce",banRate:32},
+{id:"hle_2",name:"Kanavi",team:"Hanwha Life Esports",league:"LCK",role:"Jungle",kills:4.5,recentKills:3.8,champ:"Vi",banRate:28},
+{id:"hle_3",name:"Zeka",team:"Hanwha Life Esports",league:"LCK",role:"Mid",kills:3.7,recentKills:5.2,champ:"Ahri",banRate:35},
+{id:"hle_4",name:"Gumayusi",team:"Hanwha Life Esports",league:"LCK",role:"ADC",kills:5.0,recentKills:4.2,champ:"Varus",banRate:35},
+{id:"hle_5",name:"Delight",team:"Hanwha Life Esports",league:"LCK",role:"Support",kills:1.0,recentKills:1.7,champ:"Renata Glasc",banRate:22},
+// LPL
+{id:"blg_1",name:"Bin",team:"Bilibili Gaming",league:"LPL",role:"Top",kills:4.0,recentKills:2.2,champ:"K'Sante",banRate:30},
+{id:"blg_2",name:"XUN",team:"Bilibili Gaming",league:"LPL",role:"Jungle",kills:3.5,recentKills:4.4,champ:"Vi",banRate:18},
+{id:"blg_3",name:"Knight",team:"Bilibili Gaming",league:"LPL",role:"Mid",kills:6.0,recentKills:6.4,champ:"Orianna",banRate:40},
+{id:"blg_4",name:"Viper",team:"Bilibili Gaming",league:"LPL",role:"ADC",kills:5.0,recentKills:4.4,champ:"Kaisa",banRate:30},
+{id:"blg_5",name:"ON",team:"Bilibili Gaming",league:"LPL",role:"Support",kills:0.9,recentKills:0.6,champ:"Rakan",banRate:16},
+{id:"tes_1",name:"369",team:"Top Esports",league:"LPL",role:"Top",kills:3.2,recentKills:3.2,champ:"K'Sante",banRate:20},
+{id:"tes_6",name:"ZUIAN",team:"Top Esports",league:"LPL",role:"Top",kills:3.3,recentKills:3.7,champ:"Aatrox",banRate:16},
+{id:"tes_2",name:"Tian",team:"Top Esports",league:"LPL",role:"Jungle",kills:3.6,recentKills:4.5,champ:"Wukong",banRate:20},
+{id:"tes_3",name:"Creme",team:"Top Esports",league:"LPL",role:"Mid",kills:3.9,recentKills:4.6,champ:"Azir",banRate:22},
+{id:"tes_4",name:"JackeyLove",team:"Top Esports",league:"LPL",role:"ADC",kills:4.8,recentKills:3.8,champ:"Varus",banRate:28},
+{id:"tes_5",name:"fengyue",team:"Top Esports",league:"LPL",role:"Support",kills:0.9,recentKills:0.8,champ:"Rakan",banRate:14},
+// LEC
+{id:"g2_1",name:"BrokenBlade",team:"G2 Esports",league:"LEC",role:"Top",kills:3.4,recentKills:2.9,champ:"Aatrox",banRate:20},
+{id:"g2_2",name:"SkewMond",team:"G2 Esports",league:"LEC",role:"Jungle",kills:3.3,recentKills:3.7,champ:"Nasus",banRate:16},
+{id:"g2_3",name:"Caps",team:"G2 Esports",league:"LEC",role:"Mid",kills:3.7,recentKills:4.9,champ:"Azir",banRate:45},
+{id:"g2_4",name:"Hans Sama",team:"G2 Esports",league:"LEC",role:"ADC",kills:4.0,recentKills:3.5,champ:"Yunara",banRate:25},
+{id:"g2_5",name:"Labrov",team:"G2 Esports",league:"LEC",role:"Support",kills:0.8,recentKills:0.8,champ:"Rakan",banRate:18},
+{id:"kc_1",name:"Canna",team:"Karmine Corp",league:"LEC",role:"Top",kills:3.6,recentKills:3.6,champ:"Jax",banRate:22},
+{id:"kc_2",name:"Yike",team:"Karmine Corp",league:"LEC",role:"Jungle",kills:4.2,recentKills:4.2,champ:"Wukong",banRate:20},
+{id:"kc_3",name:"Kyeahoo",team:"Karmine Corp",league:"LEC",role:"Mid",kills:3.8,recentKills:3.8,champ:"Yone",banRate:24},
+{id:"kc_4",name:"Caliste",team:"Karmine Corp",league:"LEC",role:"ADC",kills:4.6,recentKills:8.3,champ:"Sivir",banRate:20},
+{id:"kc_5",name:"Busio",team:"Karmine Corp",league:"LEC",role:"Support",kills:1.0,recentKills:0.5,champ:"Rell",banRate:26},
+// LCS
+{id:"lyon_1",name:"Dhokla",team:"LYON",league:"LCS",role:"Top",kills:2.9,recentKills:4.1,champ:"Renekton",banRate:16},
+{id:"lyon_2",name:"Inspired",team:"LYON",league:"LCS",role:"Jungle",kills:3.8,recentKills:4.9,champ:"Sejuani",banRate:22},
+{id:"lyon_3",name:"Saint",team:"LYON",league:"LCS",role:"Mid",kills:3.4,recentKills:3.1,champ:"Ryze",banRate:20},
+{id:"lyon_4",name:"Berserker",team:"LYON",league:"LCS",role:"ADC",kills:4.6,recentKills:5.5,champ:"Jinx",banRate:24},
+{id:"lyon_5",name:"Isles",team:"LYON",league:"LCS",role:"Support",kills:0.6,recentKills:1.3,champ:"Rakan",banRate:14},
+{id:"tl_1",name:"Morgan",team:"Team Liquid",league:"LCS",role:"Top",kills:3.3,recentKills:3.3,champ:"Jax",banRate:18},
+{id:"tl_2",name:"Josedeodo",team:"Team Liquid",league:"LCS",role:"Jungle",kills:4.0,recentKills:4.0,champ:"Kindred",banRate:22},
+{id:"tl_3",name:"Quid",team:"Team Liquid",league:"LCS",role:"Mid",kills:3.2,recentKills:3.2,champ:"Ryze",banRate:20},
+{id:"tl_4",name:"Yeon",team:"Team Liquid",league:"LCS",role:"ADC",kills:3.8,recentKills:3.0,champ:"Kalista",banRate:18},
+{id:"tl_5",name:"CoreJJ",team:"Team Liquid",league:"LCS",role:"Support",kills:1.3,recentKills:1.3,champ:"Renata Glasc",banRate:20},
+// LCP
+{id:"tsw_1",name:"Pun",team:"Team Secret Whales",league:"LCP",role:"Top",kills:3.2,recentKills:3.5,champ:"K'Sante",banRate:16},
+{id:"tsw_2",name:"Hizto",team:"Team Secret Whales",league:"LCP",role:"Jungle",kills:4.6,recentKills:4.2,champ:"Viego",banRate:22},
+{id:"tsw_3",name:"Dire",team:"Team Secret Whales",league:"LCP",role:"Mid",kills:3.8,recentKills:2.9,champ:"Ahri",banRate:18},
+{id:"tsw_4",name:"Eddie",team:"Team Secret Whales",league:"LCP",role:"ADC",kills:4.6,recentKills:2.3,champ:"Kaisa",banRate:20},
+{id:"tsw_5",name:"Bie",team:"Team Secret Whales",league:"LCP",role:"Support",kills:1.0,recentKills:0.9,champ:"Nautilus",banRate:14},
+{id:"dcg_1",name:"Flauren",team:"Deep Cross Gaming",league:"LCP",role:"Top",kills:3.4,recentKills:3.4,champ:"Jax",banRate:18},
+{id:"dcg_2",name:"POP9",team:"Deep Cross Gaming",league:"LCP",role:"Jungle",kills:4.0,recentKills:4.0,champ:"Lee Sin",banRate:16},
+{id:"dcg_3",name:"HongSuo",team:"Deep Cross Gaming",league:"LCP",role:"Mid",kills:3.6,recentKills:3.6,champ:"LeBlanc",banRate:15},
+{id:"dcg_4",name:"Feng",team:"Deep Cross Gaming",league:"LCP",role:"ADC",kills:4.2,recentKills:4.2,champ:"Jinx",banRate:14},
+{id:"dcg_5",name:"ShiauC",team:"Deep Cross Gaming",league:"LCP",role:"Support",kills:0.8,recentKills:0.8,champ:"Rakan",banRate:12},
+// CBLOL
+{id:"fur_1",name:"Guigo",team:"FURIA",league:"CBLOL",role:"Top",kills:3.2,recentKills:2.8,champ:"Gnar",banRate:16},
+{id:"fur_2",name:"Tatu",team:"FURIA",league:"CBLOL",role:"Jungle",kills:3.6,recentKills:3.2,champ:"Viego",banRate:16},
+{id:"fur_3",name:"Tutsz",team:"FURIA",league:"CBLOL",role:"Mid",kills:3.7,recentKills:3.7,champ:"Azir",banRate:18},
+{id:"fur_4",name:"Ayu",team:"FURIA",league:"CBLOL",role:"ADC",kills:4.4,recentKills:6.4,champ:"Kaisa",banRate:18},
+{id:"fur_5",name:"Jojo",team:"FURIA",league:"CBLOL",role:"Support",kills:0.9,recentKills:1.0,champ:"Nautilus",banRate:12},
+];
+
+// Recent head-to-head results (MSI 2026 Play-In). Used for the H2H adjustment.
+const H2H_RECORDS = [
+  {teamA:"T1", teamB:"Team Liquid", winner:"T1", score:"3-0", note:"MSI Play-In (Jun 28)"},
+  {teamA:"Karmine Corp", teamB:"Deep Cross Gaming", winner:"Karmine Corp", score:"3-0", note:"MSI Play-In (Jun 28)"},
+  {teamA:"T1", teamB:"Karmine Corp", winner:"T1", score:"3-0", note:"MSI Play-In (Jun 29)"},
+  {teamA:"Hanwha Life Esports", teamB:"Team Secret Whales", winner:"Hanwha Life Esports", score:"3-0", note:"MSI R1 (Jul 3)"},
+  {teamA:"G2 Esports", teamB:"Top Esports", winner:"G2 Esports", score:"3-2", note:"MSI R1 (Jul 3)"},
+  {teamA:"LYON", teamB:"FURIA", winner:"LYON", score:"3-0", note:"MSI R1 (Jul 4)"},
+  {teamA:"Bilibili Gaming", teamB:"T1", winner:"Bilibili Gaming", score:"3-2", note:"MSI R1 (Jul 4)"},
+];
+function findH2H(a,b){ return H2H_RECORDS.find(r => (r.teamA===a&&r.teamB===b)||(r.teamA===b&&r.teamB===a)); }
+
+// Team strength ratings (0-100), my subjective read from MSI 2026 power rankings
+// and results (Sheep Esports, Hotspawn, Sportskeeda, First Stand outcomes). Higher
+// = stronger. Used to shift kill projections for the actual matchup: a big favorite's
+// players trend up, a heavy underdog's inflated domestic numbers get suppressed.
+const TEAM_RATINGS = {
+  "Bilibili Gaming":95, "Hanwha Life Esports":94, "T1":90, "G2 Esports":84,
+  "Top Esports":79, "Karmine Corp":72, "LYON":66, "Team Liquid":60,
+  "Team Secret Whales":55, "Deep Cross Gaming":50, "FURIA":46
+};
+function matchupMultiplier(myTeam, oppTeam){
+  const a = TEAM_RATINGS[myTeam], b = TEAM_RATINGS[oppTeam];
+  if(a==null || b==null) return {mult:1, diff:0};
+  const diff = a - b; // + = favored
+  // Asymmetric: favorites get a modest boost, underdogs get stronger suppression
+  // (their domestic kill averages are inflated by weaker regional competition).
+  let mult = diff >= 0 ? 1 + diff*0.004 : 1 + diff*0.011;
+  mult = Math.max(0.4, Math.min(1.6, mult));
+  return {mult, diff};
+}
+
+// Color-coded team badges (monogram in each org's brand colors — not the actual
+// logo artwork, so the file stays self-contained and always renders).
+const TEAM_META = {
+  "T1":{abbr:"T1", bg:"#E2012D", fg:"#ffffff"},
+  "Hanwha Life Esports":{abbr:"HLE", bg:"#FF6A00", fg:"#111111"},
+  "Bilibili Gaming":{abbr:"BLG", bg:"#14224E", fg:"#F0C24B"},
+  "Top Esports":{abbr:"TES", bg:"#C8102E", fg:"#ffffff"},
+  "G2 Esports":{abbr:"G2", bg:"#111111", fg:"#ED1C24"},
+  "Karmine Corp":{abbr:"KC", bg:"#123CE0", fg:"#ffffff"},
+  "LYON":{abbr:"LYON", bg:"#10B98E", fg:"#0A0D12"},
+  "Team Liquid":{abbr:"TL", bg:"#0A1E3F", fg:"#1BA0E0"},
+  "Team Secret Whales":{abbr:"TSW", bg:"#0E1B24", fg:"#17BFA6"},
+  "Deep Cross Gaming":{abbr:"DCG", bg:"#6A2FB5", fg:"#ffffff"},
+  "FURIA":{abbr:"FUR", bg:"#111111", fg:"#E7FF4F"}
+};
+function teamBadge(name){
+  const m = TEAM_META[name];
+  if(!m) return `<span class="team-badge" style="background:var(--bg-raised); color:var(--text-faint);">?</span>`;
+  return `<span class="team-badge" style="background:${m.bg}; color:${m.fg};">${m.abbr}</span>`;
+}
+
+// Archive of completed matches — powers the Past Games section. Each pick stores
+// the line, the lean the model gave, and the actual Maps 1-3 kills (source: gol.gg).
+const HISTORY = [
+  {
+    date:"Jul 5", teamA:"Hanwha Life Esports", teamB:"G2 Esports", winner:"Hanwha Life Esports", score:"3-0",
+    predWinner:"Hanwha Life Esports", predScore:"3-1", predProb:75,
+    picks:[
+      {label:"Zeus", team:"HLE", line:8.5, lean:"over", actual:17},
+      {label:"Kanavi", team:"HLE", line:12.5, lean:"under", actual:17},
+      {label:"Zeka", team:"HLE", line:15.5, lean:"over", actual:25},
+      {label:"Gumayusi", team:"HLE", line:14.5, lean:"under", actual:25},
+      {label:"Delight", team:"HLE", line:3.5, lean:"over", actual:5},
+      {label:"BrokenBlade", team:"G2", line:5.5, lean:"over", actual:10},
+      {label:"SkewMond", team:"G2", line:9.5, lean:"over", actual:9},
+      {label:"Caps", team:"G2", line:9.5, lean:"over", actual:10},
+      {label:"Hans Sama", team:"G2", line:10.5, lean:"under", actual:4},
+      {label:"Labrov", team:"G2", line:1.5, lean:"over", actual:0},
+    ]
+  },
+  {
+    date:"Jul 5", teamA:"Team Secret Whales", teamB:"Top Esports", winner:"Team Secret Whales", score:"3-1",
+    predWinner:"Top Esports", predScore:"3-0", predProb:94, picks:[],
+    note:"UPSET — model predicted Top Esports 3-0 (94%) and was WRONG; TSW won 3-1, the first-ever Bo5 win by a Vietnamese team over an LPL side. Per-player Maps 1-3 pick grading still pending: the series went 4 games and clean game-by-game box scores weren't retrievable at update time."
+  },
+  {
+    date:"Jul 3", teamA:"Hanwha Life Esports", teamB:"Team Secret Whales", winner:"Hanwha Life Esports", score:"3-0",
+    predWinner:"Hanwha Life Esports", predScore:"3-0", predProb:99,
+    picks:[
+      {label:"Zeus", team:"HLE", line:10.5, lean:"over", actual:6},
+      {label:"Kanavi", team:"HLE", line:13.5, lean:"over", actual:9},
+      {label:"Zeka", team:"HLE", line:16.5, lean:"under", actual:20},
+      {label:"Gumayusi", team:"HLE", line:16.5, lean:"over", actual:10},
+      {label:"Delight", team:"HLE", line:3, lean:"under", actual:7},
+      {label:"Pun", team:"TSW", line:5.5, lean:"under", actual:11},
+      {label:"Hizto", team:"TSW", line:7.5, lean:"over", actual:11},
+      {label:"Dire", team:"TSW", line:8, lean:"under", actual:6},
+      {label:"Eddie", team:"TSW", line:9, lean:"under", actual:0},
+      {label:"Bie", team:"TSW", line:1.5, lean:"over", actual:2},
+      {label:"Zeus + Kanavi + Zeka", team:"HLE", line:40.5, lean:"over", actual:35, combo:true},
+      {label:"Zeka + Gumayusi", team:"HLE", line:35, lean:"under", actual:30, combo:true},
+      {label:"Pun + Hizto + Dire", team:"TSW", line:20, lean:"under", actual:28, combo:true},
+      {label:"Dire + Eddie", team:"TSW", line:18.5, lean:"under", actual:6, combo:true},
+    ]
+  },
+  {
+    date:"Jul 3", teamA:"G2 Esports", teamB:"Top Esports", winner:"G2 Esports", score:"3-2",
+    predWinner:"G2 Esports", predScore:"3-1", predProb:63,
+    picks:[
+      {label:"BrokenBlade", team:"G2", line:7, lean:"over", actual:7},
+      {label:"SkewMond", team:"G2", line:10.5, lean:"under", actual:12},
+      {label:"Caps", team:"G2", line:10.5, lean:"over", actual:18},
+      {label:"Hans Sama", team:"G2", line:12.5, lean:"under", actual:9},
+      {label:"Labrov", team:"G2", line:1.5, lean:"over", actual:2},
+      {label:"ZUIAN", team:"TES", line:8, lean:"over", actual:12},
+      {label:"Tian", team:"TES", line:10, lean:"over", actual:16},
+      {label:"Creme", team:"TES", line:11, lean:"over", actual:16},
+      {label:"JackeyLove", team:"TES", line:14, lean:"under", actual:8},
+      {label:"fengyue", team:"TES", line:2.5, lean:"over", actual:2},
+      {label:"BrokenBlade + SkewMond + Caps", team:"G2", line:27.5, lean:"over", actual:37, combo:true},
+      {label:"Caps + Hans Sama", team:"G2", line:23.5, lean:"under", actual:27, combo:true},
+      {label:"ZUIAN + Tian + Creme", team:"TES", line:30, lean:"over", actual:44, combo:true},
+      {label:"Creme + JackeyLove", team:"TES", line:25.5, lean:"under", actual:24, combo:true},
+    ]
+  },
+  {
+    date:"Jul 4", teamA:"LYON", teamB:"FURIA", winner:"LYON", score:"3-0",
+    predWinner:"LYON", predScore:"3-0", predProb:91,
+    picks:[
+      {label:"Dhokla", team:"LYON", line:8, lean:"over", actual:16},
+      {label:"Inspired", team:"LYON", line:10, lean:"over", actual:18},
+      {label:"Saint", team:"LYON", line:12, lean:"under", actual:8},
+      {label:"Berserker", team:"LYON", line:13.5, lean:"over", actual:19},
+      {label:"Isles", team:"LYON", line:2.5, lean:"under", actual:6},
+      {label:"Guigo", team:"FUR", line:6.5, lean:"over", actual:7},
+      {label:"Tatu", team:"FUR", line:9.5, lean:"under", actual:8},
+      {label:"Tutsz", team:"FUR", line:9, lean:"under", actual:11},
+      {label:"Ayu", team:"FUR", line:11.5, lean:"under", actual:25},
+      {label:"JoJo", team:"FUR", line:1.5, lean:"over", actual:3},
+      {label:"Dhokla + Inspired + Saint", team:"LYON", line:30.5, lean:"over", actual:42, combo:true},
+      {label:"Saint + Berserker", team:"LYON", line:24, lean:"over", actual:27, combo:true},
+      {label:"Guigo + Tatu + Tutsz", team:"FUR", line:25.5, lean:"under", actual:26, combo:true},
+      {label:"Tutsz + Ayu", team:"FUR", line:19.5, lean:"under", actual:36, combo:true},
+    ]
+  },
+  {
+    date:"Jul 4", teamA:"Bilibili Gaming", teamB:"T1", winner:"Bilibili Gaming", score:"3-2",
+    predWinner:"Bilibili Gaming", predScore:"3-1", predProb:63,
+    picks:[
+      {label:"Bin", team:"BLG", line:9.5, lean:"over", actual:1},
+      {label:"XUN", team:"BLG", line:11, lean:"under", actual:16},
+      {label:"Knight", team:"BLG", line:15.5, lean:"over", actual:20},
+      {label:"Viper", team:"BLG", line:13.5, lean:"over", actual:11},
+      {label:"ON", team:"BLG", line:2.5, lean:"over", actual:1},
+      {label:"Doran", team:"T1", line:8.5, lean:"under", actual:6},
+      {label:"Oner", team:"T1", line:12.5, lean:"over", actual:5},
+      {label:"Faker", team:"T1", line:11.5, lean:"over", actual:5},
+      {label:"Peyz", team:"T1", line:17, lean:"under", actual:10},
+      {label:"Keria", team:"T1", line:2.5, lean:"over", actual:0},
+      {label:"Bin + XUN + Knight", team:"BLG", line:33.5, lean:"over", actual:37, combo:true},
+      {label:"Knight + Viper", team:"BLG", line:26, lean:"over", actual:31, combo:true},
+      {label:"Doran + Oner + Faker", team:"T1", line:31.5, lean:"over", actual:16, combo:true},
+      {label:"Faker + Peyz", team:"T1", line:28.5, lean:"over", actual:15, combo:true},
+    ]
+  },
+];
+function gradeHistPick(p){
+  const side = p.actual>p.line ? 'over' : (p.actual<p.line ? 'under' : 'push');
+  return side==='push' ? 'push' : (side===p.lean ? 'ok' : 'bad');
+}
+
+// Team abbreviations people type on a slate → canonical names.
+const TEAM_ALIASES = {
+  "t1":"T1","hle":"Hanwha Life Esports","blg":"Bilibili Gaming","tes":"Top Esports",
+  "g2":"G2 Esports","kc":"Karmine Corp","lyon":"LYON","tl":"Team Liquid","tlaw":"Team Liquid",
+  "tsw":"Team Secret Whales","dcg":"Deep Cross Gaming","fur":"FURIA","furia":"FURIA"
+};
+function resolveTeam(raw){ const k=raw.trim().toLowerCase(); return TEAM_ALIASES[k]||raw.trim(); }
+
+let players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
+
+const LEAGUE_ORDER = ["LCK","LPL","LEC","LCS","LCP","CBLOL"];
+const MAP_LABEL = {"1":"Map 1","2":"Map 2","3":"Map 3","1-2":"Map 1-2","1-3":"Map 1-3","2-3":"Map 2-3"};
+const MAP_COUNT = {"1":1,"2":1,"3":1,"1-2":2,"1-3":3,"2-3":2};
+
+/* ================= ROSTER ACCORDION ================= */
+const accEl = document.getElementById('rosterAccordion');
+function renderRosters(){
+  const byLeague = {};
+  players.forEach(p=>{
+    if(!byLeague[p.league]) byLeague[p.league]={};
+    if(!byLeague[p.league][p.team]) byLeague[p.league][p.team]=[];
+    byLeague[p.league][p.team].push(p);
+  });
+  const roleOrder = {Top:0,Jungle:1,Mid:2,ADC:3,Support:4};
+  let html = '';
+  LEAGUE_ORDER.forEach(lg=>{
+    if(!byLeague[lg]) return;
+    html += `<div class="league-group"><div class="league-name">${lg}</div>`;
+    Object.keys(byLeague[lg]).forEach(team=>{
+      const roster = byLeague[lg][team].sort((a,b)=>roleOrder[a.role]-roleOrder[b.role]);
+      html += `
+      <div class="team-acc" data-team="${team}">
+        <div class="team-acc-head">
+          <span class="tname">${teamBadge(team)} ${team}</span>
+          <span style="display:flex; align-items:center; gap:12px;">
+            <span class="tmeta">${roster.length} players</span>
+            <span class="chev">▶</span>
+          </span>
+        </div>
+        <div class="team-acc-body">
+          <table class="proster">
+            <thead><tr><th>Role</th><th>Player</th><th>Champ</th><th>Season K</th><th>Recent K</th></tr></thead>
+            <tbody>
+              ${roster.map(p=>`
+                <tr>
+                  <td class="prole">${p.role}</td>
+                  <td class="pname">${p.name}</td>
+                  <td class="pchamp">${p.champ}</td>
+                  <td><input type="number" step="0.1" data-id="${p.id}" data-f="kills" value="${p.kills}"></td>
+                  <td><input type="number" step="0.1" class="recent" data-id="${p.id}" data-f="recentKills" value="${p.recentKills}"></td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  accEl.innerHTML = html;
+
+  accEl.querySelectorAll('.team-acc-head').forEach(head=>{
+    head.addEventListener('click', ()=> head.parentElement.classList.toggle('open'));
+  });
+  accEl.querySelectorAll('.proster input').forEach(inp=>{
+    inp.addEventListener('change', e=>{
+      const p = players.find(x=>x.id===e.target.dataset.id);
+      if(p) p[e.target.dataset.f] = parseFloat(e.target.value)||0;
+    });
+    inp.addEventListener('click', e=> e.stopPropagation());
+  });
+}
+
+/* ================= PROJECTION MATH (Poisson, no simulation) ================= */
+function logFact(n){ let s=0; for(let i=2;i<=n;i++) s+=Math.log(i); return s; }
+function poissonCDF(k, lambda){ // P(X <= k)
+  if(lambda<=0) return 1;
+  let sum=0;
+  for(let i=0;i<=k;i++){ sum += Math.exp(-lambda + i*Math.log(lambda) - logFact(i)); }
+  return Math.min(1, sum);
+}
+function playerLambda(p, mapKey, opts){
+  const mapCount = MAP_COUNT[mapKey] || 1;
+  let perMap = opts.useRecent ? p.recentKills : p.kills;
+  let matchup = {mult:1, diff:0};
+  if(opts.useMatchup && opts.opponent){
+    matchup = matchupMultiplier(p.team, opts.opponent);
+    perMap *= matchup.mult;
+  }
+  if(opts.useH2H && opts.opponent){
+    const h2hRec = findH2H(p.team, opts.opponent);
+    if(h2hRec) perMap *= (h2hRec.winner===p.team) ? 1.05 : 0.96;
+  }
+  if(opts.useBan){
+    const banned = perMap * 0.86;
+    perMap = perMap*(1 - p.banRate/100) + banned*(p.banRate/100);
+  }
+  return { lambda: perMap*mapCount, matchup };
+}
+function project(p, mapKey, line, opts){
+  const {lambda, matchup} = playerLambda(p, mapKey, opts);
+  const h2hRec = (opts.useH2H && opts.opponent) ? findH2H(p.team, opts.opponent) : null;
+  const thresh = Math.floor(line);
+  const overProb = 1 - poissonCDF(thresh, lambda);
+  return { expected:lambda, overProb, underProb:1-overProb, h2hRec, matchup };
+}
+function projectCombo(playersArr, mapKey, line, opts){
+  // Sum of independent Poisson(λ_i) is Poisson(Σλ_i), so add the per-player rates.
+  let lambda = 0, matchup = {mult:1, diff:0};
+  playersArr.forEach(p=>{ const r = playerLambda(p, mapKey, opts); lambda += r.lambda; matchup = r.matchup; });
+  const thresh = Math.floor(line);
+  const overProb = 1 - poissonCDF(thresh, lambda);
+  return { expected:lambda, overProb, underProb:1-overProb, matchup };
+}
+function confTier(prob){
+  if(prob>=0.65) return {label:"Strong", cls:"strong"};
+  if(prob>=0.55) return {label:"Lean", cls:"lean"};
+  return {label:"Coin flip", cls:"pass"};
+}
+
+/* ================= MATCH PREDICTION (Elo → Bo5) ================= */
+function bo5SeriesProb(p){ // prob the side with single-game prob p wins a Bo5
+  const q = 1-p;
+  return Math.pow(p,3) * (1 + 3*q + 6*q*q);
+}
+function matchPrediction(teamA, teamB){
+  const ra = TEAM_RATINGS[teamA], rb = TEAM_RATINGS[teamB];
+  if(ra==null || rb==null) return null;
+  const S = 40; // Elo scale on the 0-100 rating axis
+  const pA = 1/(1 + Math.pow(10, (rb-ra)/S)); // single-game prob A wins
+  const seriesA = bo5SeriesProb(pA);
+  const favorite = seriesA>=0.5 ? teamA : teamB;
+  const underdog = seriesA>=0.5 ? teamB : teamA;
+  const pFav = Math.max(seriesA, 1-seriesA);
+  // Most-likely scoreline (from A's perspective), then express favorite-first.
+  const q = 1-pA;
+  const scores = {
+    "3-0":Math.pow(pA,3), "3-1":3*Math.pow(pA,3)*q, "3-2":6*Math.pow(pA,3)*q*q,
+    "2-3":6*Math.pow(q,3)*pA*pA, "1-3":3*Math.pow(q,3)*pA, "0-3":Math.pow(q,3)
+  };
+  let best="3-1", bestP=-1;
+  for(const k in scores){ if(scores[k]>bestP){ bestP=scores[k]; best=k; } }
+  const [aw,bw] = best.split('-').map(Number);
+  const favScore = (favorite===teamA) ? `${aw}-${bw}` : `${bw}-${aw}`;
+  return { favorite, underdog, pFav, favScore };
+}
+
+/* ================= SLATE PARSING ================= */
+function matchPlayer(text){
+  const ln = text.trim().toLowerCase();
+  // 1. Exact full-name match (handles clean "Name vs ..." rows).
+  let p = players.find(pl => pl.name.toLowerCase() === ln);
+  if(p) return p;
+  // 2. Whole-word token match: split on non-alphanumerics and require an EXACT
+  //    token equal to a single-word name (so "on" only matches ON, never SkewMond),
+  //    or the full multi-word name appearing as a phrase (e.g. "hans sama").
+  const tokens = ln.split(/[^a-z0-9]+/).filter(Boolean);
+  const byLen = [...players].sort((a,b)=> b.name.length - a.name.length);
+  return byLen.find(pl => {
+    const pn = pl.name.toLowerCase();
+    if(pn.includes(' ')) return ln.includes(pn);       // multi-word name as a phrase
+    return tokens.includes(pn);                         // single-word name as an exact token
+  });
+}
+
+function parseSlate(text){
+  const lines = text.split('\n').map(l=>l.trim()).filter(Boolean);
+  const matched=[], unmatched=[];
+  const STRUCT = /^(.+?)(?:\s+vs\.?\s+(.+?))?\s+maps?\s*([123](?:\s*-\s*[123])?)\s+(\d+(?:\.\d+)?)\s*$/i;
+  const VS = /^(.+?)\s+vs\.?\s+(.+?)\s+(\d+(?:\.\d+)?)\s*$/i;
+  const defMap = document.getElementById('defaultMap').value;
+
+  lines.forEach(raw=>{
+    let namePart=null, oppPart=null, mapPart=null, line=null;
+    let m = raw.match(STRUCT);
+    if(m){ namePart=m[1]; oppPart=m[2]||null; mapPart=m[3].replace(/\s+/g,''); line=parseFloat(m[4]); }
+    else { m = raw.match(VS); if(m){ namePart=m[1]; oppPart=m[2]; line=parseFloat(m[3]); } }
+
+    let p, opponent, mapKey, comboPlayers=null;
+    if(namePart!=null && line!=null && !isNaN(line)){
+      opponent = oppPart ? resolveTeam(oppPart) : null;
+      mapKey = mapPart || defMap;
+      if(namePart.includes('+')){
+        const parts = namePart.split('+').map(s=>s.trim()).filter(Boolean);
+        const found = parts.map(matchPlayer);
+        if(found.every(Boolean)) comboPlayers = found;
+      } else {
+        p = matchPlayer(namePart);
+      }
+    } else {
+      p = matchPlayer(raw);
+      const mm = raw.match(/\bm(?:ap)?s?\s*([123](?:\s*-\s*[123])?)\b/i);
+      const om = raw.match(/\bvs\.?\s+([A-Za-z0-9 .'']+?)(?=\s+maps?\b|,|$)/i);
+      const nums = raw.match(/\d+(?:\.\d+)?/g);
+      if(nums) line = parseFloat(nums.find(n=>n.includes('.')) || nums[nums.length-1]);
+      opponent = om ? resolveTeam(om[1]) : null;
+      mapKey = mm ? mm[1].replace(/\s+/g,'') : defMap;
+    }
+    if(comboPlayers && line!=null && !isNaN(line)) matched.push({players:comboPlayers, isCombo:true, line, mapKey, opponent, raw});
+    else if(p && line!=null && !isNaN(line)) matched.push({player:p, line, mapKey, opponent, raw});
+    else unmatched.push(raw);
+  });
+  return {matched, unmatched};
+}
+
+/* ================= RANK ================= */
+function rank(){
+  const {matched, unmatched} = parseSlate(document.getElementById('slateInput').value);
+  const opts = {
+    useMatchup: document.getElementById('optMatchup').checked,
+    useRecent: document.getElementById('optRecent').checked,
+    useH2H: document.getElementById('optH2H').checked,
+    useBan: document.getElementById('optBan').checked,
+  };
+  const rows = matched.map(m=>{
+    if(m.isCombo){
+      const pr = projectCombo(m.players, m.mapKey, m.line, {...opts, opponent:m.opponent});
+      const side = pr.overProb>=0.5 ? 'over':'under';
+      const prob = Math.max(pr.overProb, pr.underProb);
+      return {...m, side, prob, expected:pr.expected, matchup:pr.matchup,
+        team:m.players[0].team, label:m.players.map(p=>p.name).join(' + ')};
+    }
+    const pr = project(m.player, m.mapKey, m.line, {...opts, opponent:m.opponent});
+    const side = pr.overProb>=0.5 ? 'over':'under';
+    const prob = Math.max(pr.overProb, pr.underProb);
+    return {...m, side, prob, expected:pr.expected, h2hRec:pr.h2hRec, matchup:pr.matchup,
+      team:m.player.team, label:m.player.name};
+  });
+
+  const box = document.getElementById('results');
+  if(!rows.length){
+    box.innerHTML = unmatched.length
+      ? `<div class="warn">Couldn't match any rows to an MSI player. Check spelling — only MSI 2026 teams are loaded. Unmatched: ${unmatched.map(u=>`"${u}"`).join(', ')}</div>`
+      : `<div class="empty">Paste some lines above and hit "Rank these picks".</div>`;
+    return;
+  }
+
+  // Group by match (sorted team pair). Preserve first-appearance order.
+  const groups = new Map();
+  rows.forEach(r=>{
+    const key = r.opponent ? [r.team, r.opponent].sort().join(' ||| ') : 'Ungrouped';
+    if(!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(r);
+  });
+
+  const picksHeader = `<div class="picks-head"><div></div><div>Player</div><div>Line</div><div>Proj. kills</div><div>Lean</div><div>Confidence</div></div>`;
+  const renderRow = (r)=>{
+    const tier = confTier(r.prob);
+    let edge = '';
+    if(r.matchup && r.matchup.diff){
+      edge = r.matchup.diff>0 ? ` · ${r.team} favored` : ` · ${r.team} underdog`;
+    }
+    return `<div class="pick-row${r.isCombo?' combo':''}">
+      <div class="rank">${r.side==='over'?'▲':'▼'}</div>
+      <div>
+        <div class="pk-name">${r.label} <span style="color:var(--text-faint); font-weight:400; font-size:12px;">${r.team}</span>${r.isCombo?' <span class="combo-badge">COMBO</span>':''}</div>
+        <div class="pk-sub">${MAP_LABEL[r.mapKey]||('Map '+r.mapKey)} Kills${edge}${r.h2hRec? ' · H2H '+r.h2hRec.score : ''}</div>
+      </div>
+      <div class="pk-line">${r.line}</div>
+      <div class="pk-exp">${r.expected.toFixed(1)}</div>
+      <div class="pk-call ${r.side}">${r.side.toUpperCase()}</div>
+      <div class="conf ${tier.cls}">${tier.label} · ${(r.prob*100).toFixed(0)}%</div>
+    </div>`;
+  };
+  let html = '';
+
+  groups.forEach((picks, key)=>{
+    const singles = picks.filter(p=>!p.isCombo).sort((a,b)=> b.prob - a.prob);
+    const combos  = picks.filter(p=>p.isCombo).sort((a,b)=> b.prob - a.prob);
+
+    // Match header with prediction
+    let headHtml = '';
+    if(key !== 'Ungrouped'){
+      const [tA,tB] = key.split(' ||| ');
+      const pred = matchPrediction(tA,tB);
+      if(pred){
+        const favPct = (pred.pFav*100).toFixed(0);
+        const favLeftPct = (pred.favorite===tA) ? favPct : (100-favPct);
+        headHtml = `
+          <div class="match-head">
+            <div class="match-teams">${teamBadge(tA)} ${tA} <span class="vs">vs</span> ${teamBadge(tB)} ${tB}</div>
+            <div class="match-pred">
+              <span class="mp-score">Predicted: <b>${pred.favorite} ${pred.favScore}</b></span>
+              <span class="mp-prob">${pred.favorite} <b>${favPct}%</b> to win series</span>
+            </div>
+          </div>
+          <div class="winbar" title="${tA} vs ${tB} series win probability">
+            <div class="wb-fill" style="width:${favLeftPct}%"></div>
+            <div class="wb-labels"><span>${tA}</span><span>${tB}</span></div>
+          </div>`;
+      } else {
+        headHtml = `<div class="match-head"><div class="match-teams">${teamBadge(tA)} ${tA} <span class="vs">vs</span> ${teamBadge(tB)} ${tB}</div><div class="match-pred"><span class="mp-prob" style="color:var(--text-faint);">No rating for one team — prediction unavailable</span></div></div>`;
+      }
+    } else {
+      headHtml = `<div class="match-head"><div class="match-teams">Other picks</div></div>`;
+    }
+
+    let body = '';
+    if(singles.length) body += picksHeader + singles.map(renderRow).join('');
+    if(combos.length) body += `<div class="combo-divider">Combos</div>` + combos.map(renderRow).join('');
+
+    const strong = picks.filter(p=>p.prob>=0.65).length;
+    const summaryBits = [`${picks.length} pick${picks.length!==1?'s':''}`];
+    if(strong) summaryBits.push(`${strong} strong`);
+
+    html += `<div class="match-block collapsed">
+      <div class="mb-toggle">
+        ${headHtml}
+        <div class="mb-summary"><span class="mb-count">${summaryBits.join(' · ')}</span><span class="mb-chev">▶</span></div>
+      </div>
+      <div class="mb-body">${body}</div>
+    </div>`;
+  });
+
+  if(unmatched.length) html += `<div class="warn">Couldn't match ${unmatched.length} line(s): ${unmatched.map(u=>`"${u}"`).join(', ')}</div>`;
+  box.innerHTML = html;
+
+  box.querySelectorAll('.mb-toggle').forEach(t=>{
+    t.addEventListener('click', ()=> t.parentElement.classList.toggle('collapsed'));
+  });
+}
+document.getElementById('rankBtn').addEventListener('click', rank);
+
+/* ================= DATA IMPORT / EXPORT / RESET ================= */
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(players,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='rift-msi-rosters.json'; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById('importFile').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const rd = new FileReader();
+  rd.onload = ev=>{
+    try{ const d = JSON.parse(ev.target.result); if(Array.isArray(d)){ players=d; renderRosters(); } else alert('Expected a JSON array.'); }
+    catch(err){ alert('Could not parse that file.'); }
+  };
+  rd.readAsText(f);
+});
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  if(confirm('Reset all stats to defaults? This discards your edits.')){
+    players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS)); renderRosters();
+  }
+});
+
+/* ================= PAST GAMES / HISTORY ================= */
+function renderHistory(){
+  // Overall record across all graded picks
+  let totalOk=0, totalGraded=0, predOk=0, predTotal=0;
+  HISTORY.forEach(m=>{
+    if(m.predWinner){ predTotal++; if(m.predWinner===m.winner) predOk++; }
+    m.picks.forEach(p=>{ const g=gradeHistPick(p); if(g!=='push'){ totalGraded++; if(g==='ok') totalOk++; } });
+  });
+  const pct = totalGraded ? Math.round(totalOk/totalGraded*100) : 0;
+  document.getElementById('historyOverall').innerHTML = `
+    <div class="hist-overall">
+      <div class="ho-box"><div class="ho-k">Pick record</div><div class="ho-v">${totalOk}/${totalGraded} <span>(${pct}%)</span></div></div>
+      <div class="ho-box"><div class="ho-k">Series called</div><div class="ho-v">${predOk}/${predTotal}</div></div>
+      <div class="ho-box"><div class="ho-k">Matches logged</div><div class="ho-v">${HISTORY.length}</div></div>
+    </div>`;
+
+  document.getElementById('historyList').innerHTML = HISTORY.map(m=>{
+    const graded = m.picks.map(gradeHistPick).filter(g=>g!=='push');
+    const hits = graded.filter(g=>g==='ok').length;
+    const predHit = m.predWinner===m.winner;
+    const exact = m.predScore===m.score;
+    const predNote = m.predWinner
+      ? (predHit ? `<span class="pred-hit">✓ called ${m.predWinner}${exact?' '+m.score+' exactly':' (said '+m.predScore+')'}</span>` : `<span class="pred-miss">✗ predicted ${m.predWinner}</span>`)
+      : '';
+    const rowsHtml = m.picks.length ? m.picks.map(p=>{
+      const g = gradeHistPick(p);
+      const cls = g==='ok'?'res-ok':g==='bad'?'res-bad':'res-push';
+      const mark = g==='ok'?'✓':g==='bad'?'✗':'push';
+      return `<div class="pick-row ${cls}">
+        <div class="rank">${p.lean==='over'?'▲':'▼'}</div>
+        <div><div class="pk-name">${p.label} <span style="color:var(--text-faint);font-weight:400;font-size:12px;">${p.team}</span>${p.combo?' <span class="combo-badge">COMBO</span>':''}</div>
+        <div class="pk-sub">Maps 1-3 Kills · lean ${p.lean.toUpperCase()}</div></div>
+        <div class="pk-line">${p.line}</div>
+        <div class="pk-exp res ${cls}">${p.actual}</div>
+        <div class="pk-call ${p.lean}">${p.lean.toUpperCase()}</div>
+        <div class="res ${cls}" style="justify-self:start;font-family:'JetBrains Mono',monospace;font-weight:700;">${mark}</div>
+      </div>`;
+    }).join('') : `<div class="warn">${m.note||'No pick data logged for this match.'}</div>`;
+
+    const hdr = `<div class="picks-head"><div></div><div>Player</div><div>Line</div><div>Actual</div><div>Lean</div><div>Result</div></div>`;
+    return `<div class="match-block collapsed">
+      <div class="mb-toggle">
+        <div class="match-head">
+          <div class="match-teams">${teamBadge(m.teamA)} ${m.teamA} <span class="vs">vs</span> ${teamBadge(m.teamB)} ${m.teamB}</div>
+          <div class="match-pred"><span class="mp-score"><b>${m.winner} ${m.score}</b> · ${m.date}</span>${predNote}</div>
+        </div>
+        <div class="mb-summary"><span class="mb-count">${m.picks.length?`${hits}/${graded.length} picks hit`:'result only'}</span><span class="mb-chev">▶</span></div>
+      </div>
+      <div class="mb-body">${m.picks.length?hdr:''}${rowsHtml}</div>
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('#historyList .mb-toggle').forEach(t=>{
+    t.addEventListener('click', ()=> t.parentElement.classList.toggle('collapsed'));
+  });
+}
+
+/* ================= INIT ================= */
+renderRosters();
+renderHistory();
+</script>
+</body>
+</html>

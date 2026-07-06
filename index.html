@@ -118,6 +118,20 @@
   .combo-divider{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); margin:14px 0 8px; padding-top:10px; border-top:1px dashed var(--border);}
   .pick-row.combo{border-color:rgba(63,221,208,0.28);}
   .combo-badge{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.08em; color:var(--cyan); border:1px solid rgba(63,221,208,0.4); border-radius:3px; padding:1px 5px; margin-left:6px; vertical-align:middle;}
+  .res{font-family:'JetBrains Mono',monospace; font-weight:700;}
+  .res-ok{color:var(--success);} .res-bad{color:var(--danger);} .res-push{color:var(--text-faint);}
+  .pick-row.res-ok{border-left:3px solid var(--success);}
+  .pick-row.res-bad{border-left:3px solid var(--danger);}
+  .pick-row.res-push{border-left:3px solid var(--border-bright);}
+  .hit-tag{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--gold-bright); background:rgba(200,164,82,0.12); border:1px solid rgba(200,164,82,0.3); border-radius:10px; padding:2px 8px;}
+  .pred-hit{color:var(--success); font-size:12px; font-weight:600;}
+  .pred-miss{color:var(--danger); font-size:12px; font-weight:600;}
+  .result-badge{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--gold-bright);}
+  .hist-overall{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:18px;}
+  .hist-overall .ho-box{background:var(--bg-panel-alt); border:1px solid var(--border); border-radius:6px; padding:12px 14px;}
+  .hist-overall .ho-k{font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint);}
+  .hist-overall .ho-v{font-family:'Rajdhani',sans-serif; font-size:24px; font-weight:700; color:var(--gold-bright); margin-top:2px;}
+  .hist-overall .ho-v span{font-size:14px; color:var(--text-dim);}
   .empty{color:var(--text-faint); font-size:14px; border:1px dashed var(--border); border-radius:6px; padding:36px 20px; text-align:center;}
   @media (max-width:720px){
     .picks-head{display:none;}
@@ -154,62 +168,25 @@
       <p class="section-sub">One line per row. Format: <span class="mono" style="color:var(--cyan);">Name vs Opponent MAPS 1-3 13.5</span> — the "vs Opponent" and "MAPS" parts are optional. Results are ranked by confidence, strongest first, with the projected kill total for each.</p>
     </div>
 
-    <textarea id="slateInput" rows="50">Zeus vs TSW MAPS 1-3 10.5
-Kanavi vs TSW MAPS 1-3 13.5
-Zeka vs TSW MAPS 1-3 16.5
-Gumayusi vs TSW MAPS 1-3 16.5
-Delight vs TSW MAPS 1-3 3
-Pun vs HLE MAPS 1-3 5.5
-Hizto vs HLE MAPS 1-3 7.5
-Dire vs HLE MAPS 1-3 8
-Eddie vs HLE MAPS 1-3 9
-Bie vs HLE MAPS 1-3 1.5
-BrokenBlade vs TES MAPS 1-3 7
-SkewMond vs TES MAPS 1-3 10.5
-Caps vs TES MAPS 1-3 10.5
-Hans Sama vs TES MAPS 1-3 12.5
-Labrov vs TES MAPS 1-3 1.5
-ZUIAN vs G2 MAPS 1-3 8
-Tian vs G2 MAPS 1-3 10
-Creme vs G2 MAPS 1-3 11
-JackeyLove vs G2 MAPS 1-3 14
-fengyue vs G2 MAPS 1-3 2.5
-Dhokla vs FUR MAPS 1-3 8
-Inspired vs FUR MAPS 1-3 10
-Saint vs FUR MAPS 1-3 12
-Berserker vs FUR MAPS 1-3 13.5
-Isles vs FUR MAPS 1-3 2.5
-Guigo vs LYON MAPS 1-3 6.5
-Tatu vs LYON MAPS 1-3 9.5
-Tutsz vs LYON MAPS 1-3 9
-Ayu vs LYON MAPS 1-3 11.5
-JoJo vs LYON MAPS 1-3 1.5
-Bin vs T1 MAPS 1-3 9.5
-Xun vs T1 MAPS 1-3 11
-knight vs T1 MAPS 1-3 15.5
-Viper vs T1 MAPS 1-3 13.5
-ON vs T1 MAPS 1-3 2.5
-Doran vs BLG MAPS 1-3 8.5
-Oner vs BLG MAPS 1-3 12.5
-Faker vs BLG MAPS 1-3 11.5
-Peyz vs BLG MAPS 1-3 17
-Keria vs BLG MAPS 1-3 2.5
-Zeus + Kanavi + Zeka vs TSW MAPS 1-3 40.5
-Zeka + Gumayusi vs TSW MAPS 1-3 35
-Pun + Hizto + Dire vs HLE MAPS 1-3 20
-Dire + Eddie vs HLE MAPS 1-3 18.5
-BrokenBlade + SkewMond + Caps vs TES MAPS 1-3 27.5
-Caps + Hans Sama vs TES MAPS 1-3 23.5
-ZUIAN + Tian + Creme vs G2 MAPS 1-3 30
-Creme + JackeyLove vs G2 MAPS 1-3 25.5
-Dhokla + Inspired + Saint vs FUR MAPS 1-3 30.5
-Saint + Berserker vs FUR MAPS 1-3 24
-Guigo + Tatu + Tutsz vs LYON MAPS 1-3 25.5
-Tutsz + Ayu vs LYON MAPS 1-3 19.5
-Bin + Xun + knight vs T1 MAPS 1-3 33.5
-knight + Viper vs T1 MAPS 1-3 26
-Doran + Oner + Faker vs BLG MAPS 1-3 31.5
-Faker + Peyz vs BLG MAPS 1-3 28.5</textarea>
+    <textarea id="slateInput" rows="20">Bin vs LYON MAPS 1-3 10
+Xun vs LYON MAPS 1-3 13
+knight vs LYON MAPS 1-3 18.5
+Viper vs LYON MAPS 1-3 16
+ON vs LYON MAPS 1-3 2.5
+Dhokla vs BLG MAPS 1-3 5.5
+Inspired vs BLG MAPS 1-3 7
+Saint vs BLG MAPS 1-3 7.5
+Berserker vs BLG MAPS 1-3 9
+Isles vs BLG MAPS 1-3 1.5
+Doran vs FUR MAPS 1-3 9
+Oner vs FUR MAPS 1-3 13
+Faker vs FUR MAPS 1-3 12.5
+Peyz vs FUR MAPS 1-3 19.5
+Keria vs FUR MAPS 1-3 3.5
+Guigo vs T1 MAPS 1-3 6.5
+Tatu vs T1 MAPS 1-3 7.5
+Tutsz vs T1 MAPS 1-3 7
+Ayu vs T1 MAPS 1-3 9</textarea>
 
     <div class="opts-row">
       <div class="field">
@@ -238,10 +215,21 @@ Faker + Peyz vs BLG MAPS 1-3 28.5</textarea>
     <div id="results" style="margin-top:20px;"></div>
   </section>
 
+  <!-- ============ PAST GAMES ============ -->
+  <section id="history-section">
+    <div class="section-head">
+      <div class="section-label">03 · Past Games</div>
+      <h2 class="section-title">Track record</h2>
+      <p class="section-sub">Completed MSI 2026 matches with how each pick landed. Click a match to see every pick, the line, the lean the model gave, and the actual Maps 1-3 kills.</p>
+    </div>
+    <div id="historyOverall"></div>
+    <div id="historyList"></div>
+  </section>
+
   <!-- ============ ROSTERS ============ -->
   <section id="roster-section">
     <div class="section-head">
-      <div class="section-label">02 · Rosters</div>
+      <div class="section-label">04 · Rosters</div>
       <h2 class="section-title">MSI 2026 teams</h2>
       <p class="section-sub">Click a team to expand its roster. Season and recent per-game kill averages are editable — tune them as real numbers come in, and the picks engine will use your values.</p>
     </div>
@@ -269,33 +257,33 @@ Faker + Peyz vs BLG MAPS 1-3 28.5</textarea>
 // available). Numbers are editable estimates; rosters/roles are verified.
 const DEFAULT_PLAYERS = [
 // LCK
-{id:"t1_1",name:"Doran",team:"T1",league:"LCK",role:"Top",kills:2.8,recentKills:2.8,champ:"Ornn",banRate:18},
-{id:"t1_2",name:"Oner",team:"T1",league:"LCK",role:"Jungle",kills:3.8,recentKills:4.5,champ:"Kindred",banRate:25},
-{id:"t1_3",name:"Faker",team:"T1",league:"LCK",role:"Mid",kills:3.5,recentKills:4.5,champ:"Azir",banRate:42},
-{id:"t1_4",name:"Peyz",team:"T1",league:"LCK",role:"ADC",kills:4.6,recentKills:6.2,champ:"Kalista",banRate:40},
-{id:"t1_5",name:"Keria",team:"T1",league:"LCK",role:"Support",kills:1.0,recentKills:1.0,champ:"Rakan",banRate:44},
-{id:"hle_1",name:"Zeus",team:"Hanwha Life Esports",league:"LCK",role:"Top",kills:4.2,recentKills:4.2,champ:"Jayce",banRate:32},
-{id:"hle_2",name:"Kanavi",team:"Hanwha Life Esports",league:"LCK",role:"Jungle",kills:4.5,recentKills:4.5,champ:"Vi",banRate:28},
-{id:"hle_3",name:"Zeka",team:"Hanwha Life Esports",league:"LCK",role:"Mid",kills:3.7,recentKills:3.7,champ:"Ahri",banRate:35},
-{id:"hle_4",name:"Gumayusi",team:"Hanwha Life Esports",league:"LCK",role:"ADC",kills:5.0,recentKills:5.0,champ:"Varus",banRate:35},
-{id:"hle_5",name:"Delight",team:"Hanwha Life Esports",league:"LCK",role:"Support",kills:1.0,recentKills:1.0,champ:"Renata Glasc",banRate:22},
+{id:"t1_1",name:"Doran",team:"T1",league:"LCK",role:"Top",kills:2.8,recentKills:2.4,champ:"Ornn",banRate:18},
+{id:"t1_2",name:"Oner",team:"T1",league:"LCK",role:"Jungle",kills:3.8,recentKills:3.1,champ:"Kindred",banRate:25},
+{id:"t1_3",name:"Faker",team:"T1",league:"LCK",role:"Mid",kills:3.5,recentKills:3.1,champ:"Azir",banRate:42},
+{id:"t1_4",name:"Peyz",team:"T1",league:"LCK",role:"ADC",kills:4.6,recentKills:4.8,champ:"Kalista",banRate:40},
+{id:"t1_5",name:"Keria",team:"T1",league:"LCK",role:"Support",kills:1.0,recentKills:0.5,champ:"Rakan",banRate:44},
+{id:"hle_1",name:"Zeus",team:"Hanwha Life Esports",league:"LCK",role:"Top",kills:4.2,recentKills:3.1,champ:"Jayce",banRate:32},
+{id:"hle_2",name:"Kanavi",team:"Hanwha Life Esports",league:"LCK",role:"Jungle",kills:4.5,recentKills:3.8,champ:"Vi",banRate:28},
+{id:"hle_3",name:"Zeka",team:"Hanwha Life Esports",league:"LCK",role:"Mid",kills:3.7,recentKills:5.2,champ:"Ahri",banRate:35},
+{id:"hle_4",name:"Gumayusi",team:"Hanwha Life Esports",league:"LCK",role:"ADC",kills:5.0,recentKills:4.2,champ:"Varus",banRate:35},
+{id:"hle_5",name:"Delight",team:"Hanwha Life Esports",league:"LCK",role:"Support",kills:1.0,recentKills:1.7,champ:"Renata Glasc",banRate:22},
 // LPL
-{id:"blg_1",name:"Bin",team:"Bilibili Gaming",league:"LPL",role:"Top",kills:4.0,recentKills:4.0,champ:"K'Sante",banRate:30},
-{id:"blg_2",name:"XUN",team:"Bilibili Gaming",league:"LPL",role:"Jungle",kills:3.5,recentKills:3.5,champ:"Vi",banRate:18},
-{id:"blg_3",name:"Knight",team:"Bilibili Gaming",league:"LPL",role:"Mid",kills:6.0,recentKills:6.0,champ:"Orianna",banRate:40},
-{id:"blg_4",name:"Viper",team:"Bilibili Gaming",league:"LPL",role:"ADC",kills:5.0,recentKills:5.0,champ:"Kaisa",banRate:30},
-{id:"blg_5",name:"ON",team:"Bilibili Gaming",league:"LPL",role:"Support",kills:0.9,recentKills:0.9,champ:"Rakan",banRate:16},
+{id:"blg_1",name:"Bin",team:"Bilibili Gaming",league:"LPL",role:"Top",kills:4.0,recentKills:2.2,champ:"K'Sante",banRate:30},
+{id:"blg_2",name:"XUN",team:"Bilibili Gaming",league:"LPL",role:"Jungle",kills:3.5,recentKills:4.4,champ:"Vi",banRate:18},
+{id:"blg_3",name:"Knight",team:"Bilibili Gaming",league:"LPL",role:"Mid",kills:6.0,recentKills:6.4,champ:"Orianna",banRate:40},
+{id:"blg_4",name:"Viper",team:"Bilibili Gaming",league:"LPL",role:"ADC",kills:5.0,recentKills:4.4,champ:"Kaisa",banRate:30},
+{id:"blg_5",name:"ON",team:"Bilibili Gaming",league:"LPL",role:"Support",kills:0.9,recentKills:0.6,champ:"Rakan",banRate:16},
 {id:"tes_1",name:"369",team:"Top Esports",league:"LPL",role:"Top",kills:3.2,recentKills:3.2,champ:"K'Sante",banRate:20},
-{id:"tes_6",name:"ZUIAN",team:"Top Esports",league:"LPL",role:"Top",kills:3.3,recentKills:3.3,champ:"Aatrox",banRate:16},
-{id:"tes_2",name:"Tian",team:"Top Esports",league:"LPL",role:"Jungle",kills:3.6,recentKills:3.6,champ:"Wukong",banRate:20},
-{id:"tes_3",name:"Creme",team:"Top Esports",league:"LPL",role:"Mid",kills:3.9,recentKills:3.9,champ:"Azir",banRate:22},
-{id:"tes_4",name:"JackeyLove",team:"Top Esports",league:"LPL",role:"ADC",kills:4.8,recentKills:4.8,champ:"Varus",banRate:28},
-{id:"tes_5",name:"fengyue",team:"Top Esports",league:"LPL",role:"Support",kills:0.9,recentKills:0.9,champ:"Rakan",banRate:14},
+{id:"tes_6",name:"ZUIAN",team:"Top Esports",league:"LPL",role:"Top",kills:3.3,recentKills:3.7,champ:"Aatrox",banRate:16},
+{id:"tes_2",name:"Tian",team:"Top Esports",league:"LPL",role:"Jungle",kills:3.6,recentKills:4.5,champ:"Wukong",banRate:20},
+{id:"tes_3",name:"Creme",team:"Top Esports",league:"LPL",role:"Mid",kills:3.9,recentKills:4.6,champ:"Azir",banRate:22},
+{id:"tes_4",name:"JackeyLove",team:"Top Esports",league:"LPL",role:"ADC",kills:4.8,recentKills:3.8,champ:"Varus",banRate:28},
+{id:"tes_5",name:"fengyue",team:"Top Esports",league:"LPL",role:"Support",kills:0.9,recentKills:0.8,champ:"Rakan",banRate:14},
 // LEC
-{id:"g2_1",name:"BrokenBlade",team:"G2 Esports",league:"LEC",role:"Top",kills:3.4,recentKills:3.4,champ:"Aatrox",banRate:20},
-{id:"g2_2",name:"SkewMond",team:"G2 Esports",league:"LEC",role:"Jungle",kills:3.3,recentKills:3.3,champ:"Nasus",banRate:16},
-{id:"g2_3",name:"Caps",team:"G2 Esports",league:"LEC",role:"Mid",kills:3.7,recentKills:3.7,champ:"Azir",banRate:45},
-{id:"g2_4",name:"Hans Sama",team:"G2 Esports",league:"LEC",role:"ADC",kills:4.0,recentKills:4.0,champ:"Yunara",banRate:25},
+{id:"g2_1",name:"BrokenBlade",team:"G2 Esports",league:"LEC",role:"Top",kills:3.4,recentKills:2.9,champ:"Aatrox",banRate:20},
+{id:"g2_2",name:"SkewMond",team:"G2 Esports",league:"LEC",role:"Jungle",kills:3.3,recentKills:3.7,champ:"Nasus",banRate:16},
+{id:"g2_3",name:"Caps",team:"G2 Esports",league:"LEC",role:"Mid",kills:3.7,recentKills:4.9,champ:"Azir",banRate:45},
+{id:"g2_4",name:"Hans Sama",team:"G2 Esports",league:"LEC",role:"ADC",kills:4.0,recentKills:3.5,champ:"Yunara",banRate:25},
 {id:"g2_5",name:"Labrov",team:"G2 Esports",league:"LEC",role:"Support",kills:0.8,recentKills:0.8,champ:"Rakan",banRate:18},
 {id:"kc_1",name:"Canna",team:"Karmine Corp",league:"LEC",role:"Top",kills:3.6,recentKills:3.6,champ:"Jax",banRate:22},
 {id:"kc_2",name:"Yike",team:"Karmine Corp",league:"LEC",role:"Jungle",kills:4.2,recentKills:4.2,champ:"Wukong",banRate:20},
@@ -303,33 +291,33 @@ const DEFAULT_PLAYERS = [
 {id:"kc_4",name:"Caliste",team:"Karmine Corp",league:"LEC",role:"ADC",kills:4.6,recentKills:8.3,champ:"Sivir",banRate:20},
 {id:"kc_5",name:"Busio",team:"Karmine Corp",league:"LEC",role:"Support",kills:1.0,recentKills:0.5,champ:"Rell",banRate:26},
 // LCS
-{id:"lyon_1",name:"Dhokla",team:"LYON",league:"LCS",role:"Top",kills:2.9,recentKills:2.9,champ:"Renekton",banRate:16},
-{id:"lyon_2",name:"Inspired",team:"LYON",league:"LCS",role:"Jungle",kills:3.8,recentKills:3.8,champ:"Sejuani",banRate:22},
-{id:"lyon_3",name:"Saint",team:"LYON",league:"LCS",role:"Mid",kills:3.4,recentKills:3.4,champ:"Ryze",banRate:20},
-{id:"lyon_4",name:"Berserker",team:"LYON",league:"LCS",role:"ADC",kills:4.6,recentKills:4.6,champ:"Jinx",banRate:24},
-{id:"lyon_5",name:"Isles",team:"LYON",league:"LCS",role:"Support",kills:0.6,recentKills:0.6,champ:"Rakan",banRate:14},
+{id:"lyon_1",name:"Dhokla",team:"LYON",league:"LCS",role:"Top",kills:2.9,recentKills:4.1,champ:"Renekton",banRate:16},
+{id:"lyon_2",name:"Inspired",team:"LYON",league:"LCS",role:"Jungle",kills:3.8,recentKills:4.9,champ:"Sejuani",banRate:22},
+{id:"lyon_3",name:"Saint",team:"LYON",league:"LCS",role:"Mid",kills:3.4,recentKills:3.1,champ:"Ryze",banRate:20},
+{id:"lyon_4",name:"Berserker",team:"LYON",league:"LCS",role:"ADC",kills:4.6,recentKills:5.5,champ:"Jinx",banRate:24},
+{id:"lyon_5",name:"Isles",team:"LYON",league:"LCS",role:"Support",kills:0.6,recentKills:1.3,champ:"Rakan",banRate:14},
 {id:"tl_1",name:"Morgan",team:"Team Liquid",league:"LCS",role:"Top",kills:3.3,recentKills:3.3,champ:"Jax",banRate:18},
 {id:"tl_2",name:"Josedeodo",team:"Team Liquid",league:"LCS",role:"Jungle",kills:4.0,recentKills:4.0,champ:"Kindred",banRate:22},
 {id:"tl_3",name:"Quid",team:"Team Liquid",league:"LCS",role:"Mid",kills:3.2,recentKills:3.2,champ:"Ryze",banRate:20},
 {id:"tl_4",name:"Yeon",team:"Team Liquid",league:"LCS",role:"ADC",kills:3.8,recentKills:3.0,champ:"Kalista",banRate:18},
 {id:"tl_5",name:"CoreJJ",team:"Team Liquid",league:"LCS",role:"Support",kills:1.3,recentKills:1.3,champ:"Renata Glasc",banRate:20},
 // LCP
-{id:"tsw_1",name:"Pun",team:"Team Secret Whales",league:"LCP",role:"Top",kills:3.2,recentKills:3.2,champ:"K'Sante",banRate:16},
-{id:"tsw_2",name:"Hizto",team:"Team Secret Whales",league:"LCP",role:"Jungle",kills:4.6,recentKills:4.6,champ:"Viego",banRate:22},
-{id:"tsw_3",name:"Dire",team:"Team Secret Whales",league:"LCP",role:"Mid",kills:3.8,recentKills:3.8,champ:"Ahri",banRate:18},
-{id:"tsw_4",name:"Eddie",team:"Team Secret Whales",league:"LCP",role:"ADC",kills:4.6,recentKills:4.6,champ:"Kaisa",banRate:20},
-{id:"tsw_5",name:"Bie",team:"Team Secret Whales",league:"LCP",role:"Support",kills:1.0,recentKills:1.0,champ:"Nautilus",banRate:14},
+{id:"tsw_1",name:"Pun",team:"Team Secret Whales",league:"LCP",role:"Top",kills:3.2,recentKills:3.5,champ:"K'Sante",banRate:16},
+{id:"tsw_2",name:"Hizto",team:"Team Secret Whales",league:"LCP",role:"Jungle",kills:4.6,recentKills:4.2,champ:"Viego",banRate:22},
+{id:"tsw_3",name:"Dire",team:"Team Secret Whales",league:"LCP",role:"Mid",kills:3.8,recentKills:2.9,champ:"Ahri",banRate:18},
+{id:"tsw_4",name:"Eddie",team:"Team Secret Whales",league:"LCP",role:"ADC",kills:4.6,recentKills:2.3,champ:"Kaisa",banRate:20},
+{id:"tsw_5",name:"Bie",team:"Team Secret Whales",league:"LCP",role:"Support",kills:1.0,recentKills:0.9,champ:"Nautilus",banRate:14},
 {id:"dcg_1",name:"Flauren",team:"Deep Cross Gaming",league:"LCP",role:"Top",kills:3.4,recentKills:3.4,champ:"Jax",banRate:18},
 {id:"dcg_2",name:"POP9",team:"Deep Cross Gaming",league:"LCP",role:"Jungle",kills:4.0,recentKills:4.0,champ:"Lee Sin",banRate:16},
 {id:"dcg_3",name:"HongSuo",team:"Deep Cross Gaming",league:"LCP",role:"Mid",kills:3.6,recentKills:3.6,champ:"LeBlanc",banRate:15},
 {id:"dcg_4",name:"Feng",team:"Deep Cross Gaming",league:"LCP",role:"ADC",kills:4.2,recentKills:4.2,champ:"Jinx",banRate:14},
 {id:"dcg_5",name:"ShiauC",team:"Deep Cross Gaming",league:"LCP",role:"Support",kills:0.8,recentKills:0.8,champ:"Rakan",banRate:12},
 // CBLOL
-{id:"fur_1",name:"Guigo",team:"FURIA",league:"CBLOL",role:"Top",kills:3.2,recentKills:3.2,champ:"Gnar",banRate:16},
-{id:"fur_2",name:"Tatu",team:"FURIA",league:"CBLOL",role:"Jungle",kills:3.6,recentKills:3.6,champ:"Viego",banRate:16},
+{id:"fur_1",name:"Guigo",team:"FURIA",league:"CBLOL",role:"Top",kills:3.2,recentKills:2.8,champ:"Gnar",banRate:16},
+{id:"fur_2",name:"Tatu",team:"FURIA",league:"CBLOL",role:"Jungle",kills:3.6,recentKills:3.2,champ:"Viego",banRate:16},
 {id:"fur_3",name:"Tutsz",team:"FURIA",league:"CBLOL",role:"Mid",kills:3.7,recentKills:3.7,champ:"Azir",banRate:18},
-{id:"fur_4",name:"Ayu",team:"FURIA",league:"CBLOL",role:"ADC",kills:4.4,recentKills:4.4,champ:"Kaisa",banRate:18},
-{id:"fur_5",name:"Jojo",team:"FURIA",league:"CBLOL",role:"Support",kills:0.9,recentKills:0.9,champ:"Nautilus",banRate:12},
+{id:"fur_4",name:"Ayu",team:"FURIA",league:"CBLOL",role:"ADC",kills:4.4,recentKills:6.4,champ:"Kaisa",banRate:18},
+{id:"fur_5",name:"Jojo",team:"FURIA",league:"CBLOL",role:"Support",kills:0.9,recentKills:1.0,champ:"Nautilus",banRate:12},
 ];
 
 // Recent head-to-head results (MSI 2026 Play-In). Used for the H2H adjustment.
@@ -337,6 +325,10 @@ const H2H_RECORDS = [
   {teamA:"T1", teamB:"Team Liquid", winner:"T1", score:"3-0", note:"MSI Play-In (Jun 28)"},
   {teamA:"Karmine Corp", teamB:"Deep Cross Gaming", winner:"Karmine Corp", score:"3-0", note:"MSI Play-In (Jun 28)"},
   {teamA:"T1", teamB:"Karmine Corp", winner:"T1", score:"3-0", note:"MSI Play-In (Jun 29)"},
+  {teamA:"Hanwha Life Esports", teamB:"Team Secret Whales", winner:"Hanwha Life Esports", score:"3-0", note:"MSI R1 (Jul 3)"},
+  {teamA:"G2 Esports", teamB:"Top Esports", winner:"G2 Esports", score:"3-2", note:"MSI R1 (Jul 3)"},
+  {teamA:"LYON", teamB:"FURIA", winner:"LYON", score:"3-0", note:"MSI R1 (Jul 4)"},
+  {teamA:"Bilibili Gaming", teamB:"T1", winner:"Bilibili Gaming", score:"3-2", note:"MSI R1 (Jul 4)"},
 ];
 function findH2H(a,b){ return H2H_RECORDS.find(r => (r.teamA===a&&r.teamB===b)||(r.teamA===b&&r.teamB===a)); }
 
@@ -379,6 +371,116 @@ function teamBadge(name){
   const m = TEAM_META[name];
   if(!m) return `<span class="team-badge" style="background:var(--bg-raised); color:var(--text-faint);">?</span>`;
   return `<span class="team-badge" style="background:${m.bg}; color:${m.fg};">${m.abbr}</span>`;
+}
+
+// Archive of completed matches — powers the Past Games section. Each pick stores
+// the line, the lean the model gave, and the actual Maps 1-3 kills (source: gol.gg).
+const HISTORY = [
+  {
+    date:"Jul 5", teamA:"Hanwha Life Esports", teamB:"G2 Esports", winner:"Hanwha Life Esports", score:"3-0",
+    predWinner:"Hanwha Life Esports", predScore:"3-1", predProb:75,
+    picks:[
+      {label:"Zeus", team:"HLE", line:8.5, lean:"over", actual:17},
+      {label:"Kanavi", team:"HLE", line:12.5, lean:"under", actual:17},
+      {label:"Zeka", team:"HLE", line:15.5, lean:"over", actual:25},
+      {label:"Gumayusi", team:"HLE", line:14.5, lean:"under", actual:25},
+      {label:"Delight", team:"HLE", line:3.5, lean:"over", actual:5},
+      {label:"BrokenBlade", team:"G2", line:5.5, lean:"over", actual:10},
+      {label:"SkewMond", team:"G2", line:9.5, lean:"over", actual:9},
+      {label:"Caps", team:"G2", line:9.5, lean:"over", actual:10},
+      {label:"Hans Sama", team:"G2", line:10.5, lean:"under", actual:4},
+      {label:"Labrov", team:"G2", line:1.5, lean:"over", actual:0},
+    ]
+  },
+  {
+    date:"Jul 5", teamA:"Team Secret Whales", teamB:"Top Esports", winner:"Team Secret Whales", score:"3-1",
+    predWinner:"Top Esports", predScore:"3-0", predProb:94, picks:[],
+    note:"UPSET — model predicted Top Esports 3-0 (94%) and was WRONG; TSW won 3-1, the first-ever Bo5 win by a Vietnamese team over an LPL side. Per-player Maps 1-3 pick grading still pending: the series went 4 games and clean game-by-game box scores weren't retrievable at update time."
+  },
+  {
+    date:"Jul 3", teamA:"Hanwha Life Esports", teamB:"Team Secret Whales", winner:"Hanwha Life Esports", score:"3-0",
+    predWinner:"Hanwha Life Esports", predScore:"3-0", predProb:99,
+    picks:[
+      {label:"Zeus", team:"HLE", line:10.5, lean:"over", actual:6},
+      {label:"Kanavi", team:"HLE", line:13.5, lean:"over", actual:9},
+      {label:"Zeka", team:"HLE", line:16.5, lean:"under", actual:20},
+      {label:"Gumayusi", team:"HLE", line:16.5, lean:"over", actual:10},
+      {label:"Delight", team:"HLE", line:3, lean:"under", actual:7},
+      {label:"Pun", team:"TSW", line:5.5, lean:"under", actual:11},
+      {label:"Hizto", team:"TSW", line:7.5, lean:"over", actual:11},
+      {label:"Dire", team:"TSW", line:8, lean:"under", actual:6},
+      {label:"Eddie", team:"TSW", line:9, lean:"under", actual:0},
+      {label:"Bie", team:"TSW", line:1.5, lean:"over", actual:2},
+      {label:"Zeus + Kanavi + Zeka", team:"HLE", line:40.5, lean:"over", actual:35, combo:true},
+      {label:"Zeka + Gumayusi", team:"HLE", line:35, lean:"under", actual:30, combo:true},
+      {label:"Pun + Hizto + Dire", team:"TSW", line:20, lean:"under", actual:28, combo:true},
+      {label:"Dire + Eddie", team:"TSW", line:18.5, lean:"under", actual:6, combo:true},
+    ]
+  },
+  {
+    date:"Jul 3", teamA:"G2 Esports", teamB:"Top Esports", winner:"G2 Esports", score:"3-2",
+    predWinner:"G2 Esports", predScore:"3-1", predProb:63,
+    picks:[
+      {label:"BrokenBlade", team:"G2", line:7, lean:"over", actual:7},
+      {label:"SkewMond", team:"G2", line:10.5, lean:"under", actual:12},
+      {label:"Caps", team:"G2", line:10.5, lean:"over", actual:18},
+      {label:"Hans Sama", team:"G2", line:12.5, lean:"under", actual:9},
+      {label:"Labrov", team:"G2", line:1.5, lean:"over", actual:2},
+      {label:"ZUIAN", team:"TES", line:8, lean:"over", actual:12},
+      {label:"Tian", team:"TES", line:10, lean:"over", actual:16},
+      {label:"Creme", team:"TES", line:11, lean:"over", actual:16},
+      {label:"JackeyLove", team:"TES", line:14, lean:"under", actual:8},
+      {label:"fengyue", team:"TES", line:2.5, lean:"over", actual:2},
+      {label:"BrokenBlade + SkewMond + Caps", team:"G2", line:27.5, lean:"over", actual:37, combo:true},
+      {label:"Caps + Hans Sama", team:"G2", line:23.5, lean:"under", actual:27, combo:true},
+      {label:"ZUIAN + Tian + Creme", team:"TES", line:30, lean:"over", actual:44, combo:true},
+      {label:"Creme + JackeyLove", team:"TES", line:25.5, lean:"under", actual:24, combo:true},
+    ]
+  },
+  {
+    date:"Jul 4", teamA:"LYON", teamB:"FURIA", winner:"LYON", score:"3-0",
+    predWinner:"LYON", predScore:"3-0", predProb:91,
+    picks:[
+      {label:"Dhokla", team:"LYON", line:8, lean:"over", actual:16},
+      {label:"Inspired", team:"LYON", line:10, lean:"over", actual:18},
+      {label:"Saint", team:"LYON", line:12, lean:"under", actual:8},
+      {label:"Berserker", team:"LYON", line:13.5, lean:"over", actual:19},
+      {label:"Isles", team:"LYON", line:2.5, lean:"under", actual:6},
+      {label:"Guigo", team:"FUR", line:6.5, lean:"over", actual:7},
+      {label:"Tatu", team:"FUR", line:9.5, lean:"under", actual:8},
+      {label:"Tutsz", team:"FUR", line:9, lean:"under", actual:11},
+      {label:"Ayu", team:"FUR", line:11.5, lean:"under", actual:25},
+      {label:"JoJo", team:"FUR", line:1.5, lean:"over", actual:3},
+      {label:"Dhokla + Inspired + Saint", team:"LYON", line:30.5, lean:"over", actual:42, combo:true},
+      {label:"Saint + Berserker", team:"LYON", line:24, lean:"over", actual:27, combo:true},
+      {label:"Guigo + Tatu + Tutsz", team:"FUR", line:25.5, lean:"under", actual:26, combo:true},
+      {label:"Tutsz + Ayu", team:"FUR", line:19.5, lean:"under", actual:36, combo:true},
+    ]
+  },
+  {
+    date:"Jul 4", teamA:"Bilibili Gaming", teamB:"T1", winner:"Bilibili Gaming", score:"3-2",
+    predWinner:"Bilibili Gaming", predScore:"3-1", predProb:63,
+    picks:[
+      {label:"Bin", team:"BLG", line:9.5, lean:"over", actual:1},
+      {label:"XUN", team:"BLG", line:11, lean:"under", actual:16},
+      {label:"Knight", team:"BLG", line:15.5, lean:"over", actual:20},
+      {label:"Viper", team:"BLG", line:13.5, lean:"over", actual:11},
+      {label:"ON", team:"BLG", line:2.5, lean:"over", actual:1},
+      {label:"Doran", team:"T1", line:8.5, lean:"under", actual:6},
+      {label:"Oner", team:"T1", line:12.5, lean:"over", actual:5},
+      {label:"Faker", team:"T1", line:11.5, lean:"over", actual:5},
+      {label:"Peyz", team:"T1", line:17, lean:"under", actual:10},
+      {label:"Keria", team:"T1", line:2.5, lean:"over", actual:0},
+      {label:"Bin + XUN + Knight", team:"BLG", line:33.5, lean:"over", actual:37, combo:true},
+      {label:"Knight + Viper", team:"BLG", line:26, lean:"over", actual:31, combo:true},
+      {label:"Doran + Oner + Faker", team:"T1", line:31.5, lean:"over", actual:16, combo:true},
+      {label:"Faker + Peyz", team:"T1", line:28.5, lean:"over", actual:15, combo:true},
+    ]
+  },
+];
+function gradeHistPick(p){
+  const side = p.actual>p.line ? 'over' : (p.actual<p.line ? 'under' : 'push');
+  return side==='push' ? 'push' : (side===p.lean ? 'ok' : 'bad');
 }
 
 // Team abbreviations people type on a slate → canonical names.
@@ -681,7 +783,6 @@ function rank(){
     if(singles.length) body += picksHeader + singles.map(renderRow).join('');
     if(combos.length) body += `<div class="combo-divider">Combos</div>` + combos.map(renderRow).join('');
 
-    // Count strong leans for the collapsed summary
     const strong = picks.filter(p=>p.prob>=0.65).length;
     const summaryBits = [`${picks.length} pick${picks.length!==1?'s':''}`];
     if(strong) summaryBits.push(`${strong} strong`);
@@ -726,8 +827,66 @@ document.getElementById('resetBtn').addEventListener('click', ()=>{
   }
 });
 
+/* ================= PAST GAMES / HISTORY ================= */
+function renderHistory(){
+  // Overall record across all graded picks
+  let totalOk=0, totalGraded=0, predOk=0, predTotal=0;
+  HISTORY.forEach(m=>{
+    if(m.predWinner){ predTotal++; if(m.predWinner===m.winner) predOk++; }
+    m.picks.forEach(p=>{ const g=gradeHistPick(p); if(g!=='push'){ totalGraded++; if(g==='ok') totalOk++; } });
+  });
+  const pct = totalGraded ? Math.round(totalOk/totalGraded*100) : 0;
+  document.getElementById('historyOverall').innerHTML = `
+    <div class="hist-overall">
+      <div class="ho-box"><div class="ho-k">Pick record</div><div class="ho-v">${totalOk}/${totalGraded} <span>(${pct}%)</span></div></div>
+      <div class="ho-box"><div class="ho-k">Series called</div><div class="ho-v">${predOk}/${predTotal}</div></div>
+      <div class="ho-box"><div class="ho-k">Matches logged</div><div class="ho-v">${HISTORY.length}</div></div>
+    </div>`;
+
+  document.getElementById('historyList').innerHTML = HISTORY.map(m=>{
+    const graded = m.picks.map(gradeHistPick).filter(g=>g!=='push');
+    const hits = graded.filter(g=>g==='ok').length;
+    const predHit = m.predWinner===m.winner;
+    const exact = m.predScore===m.score;
+    const predNote = m.predWinner
+      ? (predHit ? `<span class="pred-hit">✓ called ${m.predWinner}${exact?' '+m.score+' exactly':' (said '+m.predScore+')'}</span>` : `<span class="pred-miss">✗ predicted ${m.predWinner}</span>`)
+      : '';
+    const rowsHtml = m.picks.length ? m.picks.map(p=>{
+      const g = gradeHistPick(p);
+      const cls = g==='ok'?'res-ok':g==='bad'?'res-bad':'res-push';
+      const mark = g==='ok'?'✓':g==='bad'?'✗':'push';
+      return `<div class="pick-row ${cls}">
+        <div class="rank">${p.lean==='over'?'▲':'▼'}</div>
+        <div><div class="pk-name">${p.label} <span style="color:var(--text-faint);font-weight:400;font-size:12px;">${p.team}</span>${p.combo?' <span class="combo-badge">COMBO</span>':''}</div>
+        <div class="pk-sub">Maps 1-3 Kills · lean ${p.lean.toUpperCase()}</div></div>
+        <div class="pk-line">${p.line}</div>
+        <div class="pk-exp res ${cls}">${p.actual}</div>
+        <div class="pk-call ${p.lean}">${p.lean.toUpperCase()}</div>
+        <div class="res ${cls}" style="justify-self:start;font-family:'JetBrains Mono',monospace;font-weight:700;">${mark}</div>
+      </div>`;
+    }).join('') : `<div class="warn">${m.note||'No pick data logged for this match.'}</div>`;
+
+    const hdr = `<div class="picks-head"><div></div><div>Player</div><div>Line</div><div>Actual</div><div>Lean</div><div>Result</div></div>`;
+    return `<div class="match-block collapsed">
+      <div class="mb-toggle">
+        <div class="match-head">
+          <div class="match-teams">${teamBadge(m.teamA)} ${m.teamA} <span class="vs">vs</span> ${teamBadge(m.teamB)} ${m.teamB}</div>
+          <div class="match-pred"><span class="mp-score"><b>${m.winner} ${m.score}</b> · ${m.date}</span>${predNote}</div>
+        </div>
+        <div class="mb-summary"><span class="mb-count">${m.picks.length?`${hits}/${graded.length} picks hit`:'result only'}</span><span class="mb-chev">▶</span></div>
+      </div>
+      <div class="mb-body">${m.picks.length?hdr:''}${rowsHtml}</div>
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('#historyList .mb-toggle').forEach(t=>{
+    t.addEventListener('click', ()=> t.parentElement.classList.toggle('collapsed'));
+  });
+}
+
 /* ================= INIT ================= */
 renderRosters();
+renderHistory();
 </script>
 </body>
 </html>

@@ -168,25 +168,26 @@
       <p class="section-sub">One line per row. Format: <span class="mono" style="color:var(--cyan);">Name vs Opponent MAPS 1-3 13.5</span> — the "vs Opponent" and "MAPS" parts are optional. Results are ranked by confidence, strongest first, with the projected kill total for each.</p>
     </div>
 
-    <textarea id="slateInput" rows="20">Bin vs LYON MAPS 1-3 10
-Xun vs LYON MAPS 1-3 13
-knight vs LYON MAPS 1-3 18.5
-Viper vs LYON MAPS 1-3 16
-ON vs LYON MAPS 1-3 2.5
-Dhokla vs BLG MAPS 1-3 5.5
-Inspired vs BLG MAPS 1-3 7
-Saint vs BLG MAPS 1-3 7.5
-Berserker vs BLG MAPS 1-3 9
-Isles vs BLG MAPS 1-3 1.5
-Doran vs FUR MAPS 1-3 9
-Oner vs FUR MAPS 1-3 13
-Faker vs FUR MAPS 1-3 12.5
-Peyz vs FUR MAPS 1-3 19.5
-Keria vs FUR MAPS 1-3 3.5
-Guigo vs T1 MAPS 1-3 6.5
-Tatu vs T1 MAPS 1-3 7.5
-Tutsz vs T1 MAPS 1-3 7
-Ayu vs T1 MAPS 1-3 9</textarea>
+    <textarea id="slateInput" rows="20">Dhokla vs TSW MAPS 1-3 9
+Inspired vs TSW MAPS 1-3 10
+Saint vs TSW MAPS 1-3 12.5
+Berserker vs TSW MAPS 1-3 14.5
+Isles vs TSW MAPS 1-3 3
+Pun vs LYON MAPS 1-3 7.5
+Hizto vs LYON MAPS 1-3 10
+Dire vs LYON MAPS 1-3 10.5
+Eddie vs LYON MAPS 1-3 11.5
+Bie vs LYON MAPS 1-3 2.5
+BrokenBlade vs T1 MAPS 1-3 6.5
+SkewMond vs T1 MAPS 1-3 9
+Caps vs T1 MAPS 1-3 10.5
+Hans Sama vs T1 MAPS 1-3 11
+Labrov vs T1 MAPS 1-3 2.5
+Doran vs G2 MAPS 1-3 8.5
+Oner vs G2 MAPS 1-3 11.5
+Faker vs G2 MAPS 1-3 10.5
+Peyz vs G2 MAPS 1-3 18.5
+Keria vs G2 MAPS 1-3 3.5</textarea>
 
     <div class="opts-row">
       <div class="field">
@@ -377,6 +378,27 @@ function teamBadge(name){
 // the line, the lean the model gave, and the actual Maps 1-3 kills (source: gol.gg).
 const HISTORY = [
   {
+    date:"Jul 6", teamA:"Bilibili Gaming", teamB:"LYON", winner:"Bilibili Gaming", score:"3-0",
+    predWinner:"Bilibili Gaming", predScore:"3-0", predProb:97,
+    picks:[
+      {label:"Bin", team:"BLG", line:10, lean:"under", actual:7},
+      {label:"XUN", team:"BLG", line:13, lean:"over", actual:13},
+      {label:"knight", team:"BLG", line:18.5, lean:"over", actual:20},
+      {label:"Viper", team:"BLG", line:16, lean:"under", actual:14},
+      {label:"ON", team:"BLG", line:2.5, lean:"under", actual:4},
+      {label:"Dhokla", team:"LYON", line:5.5, lean:"over", actual:6},
+      {label:"Inspired", team:"LYON", line:7, lean:"over", actual:4},
+      {label:"Saint", team:"LYON", line:7.5, lean:"under", actual:15},
+      {label:"Berserker", team:"LYON", line:9, lean:"over", actual:13},
+      {label:"Isles", team:"LYON", line:1.5, lean:"over", actual:4},
+    ]
+  },
+  {
+    date:"Jul 6", teamA:"T1", teamB:"FURIA", winner:"T1", score:"3-0",
+    predWinner:"T1", predScore:"3-0", predProb:100, picks:[],
+    note:"Series prediction hit exactly (T1 3-0). Per-player Maps 1-3 pick grading not pulled for this match yet."
+  },
+  {
     date:"Jul 5", teamA:"Hanwha Life Esports", teamB:"G2 Esports", winner:"Hanwha Life Esports", score:"3-0",
     predWinner:"Hanwha Life Esports", predScore:"3-1", predProb:75,
     picks:[
@@ -394,8 +416,20 @@ const HISTORY = [
   },
   {
     date:"Jul 5", teamA:"Team Secret Whales", teamB:"Top Esports", winner:"Team Secret Whales", score:"3-1",
-    predWinner:"Top Esports", predScore:"3-0", predProb:94, picks:[],
-    note:"UPSET — model predicted Top Esports 3-0 (94%) and was WRONG; TSW won 3-1, the first-ever Bo5 win by a Vietnamese team over an LPL side. Per-player Maps 1-3 pick grading still pending: the series went 4 games and clean game-by-game box scores weren't retrievable at update time."
+    predWinner:"Top Esports", predScore:"3-0", predProb:94,
+    picks:[
+      {label:"JackeyLove", team:"TES", line:16.5, lean:"under", actual:15},
+      {label:"Creme", team:"TES", line:14.5, lean:"over", actual:4},
+      {label:"Tian", team:"TES", line:12.5, lean:"over", actual:2},
+      {label:"ZUIAN", team:"TES", line:10.5, lean:"over", actual:3},
+      {label:"fengyue", team:"TES", line:2.5, lean:"under", actual:2},
+      {label:"Eddie", team:"TSW", line:8.5, lean:"under", actual:10},
+      {label:"Dire", team:"TSW", line:7.5, lean:"under", actual:13},
+      {label:"Hizto", team:"TSW", line:7.5, lean:"over", actual:14},
+      {label:"Pun", team:"TSW", line:5.5, lean:"over", actual:12},
+      {label:"Bie", team:"TSW", line:2.5, lean:"under", actual:2},
+    ],
+    note:"UPSET — model predicted Top Esports 3-0 (94%) and was WRONG; TSW won 3-1. The kill leans backfired the same way: the model had TES's carries going over (Creme, Tian, ZUIAN all busted) and TSW's players under (Eddie, Dire went off)."
   },
   {
     date:"Jul 3", teamA:"Hanwha Life Esports", teamB:"Team Secret Whales", winner:"Hanwha Life Esports", score:"3-0",
